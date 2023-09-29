@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1d1a09ae5fd42da4ca718a5d8f691efd
+guid: 6c24b624709d9194596f512535aa0073
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -21,7 +21,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle_personajeBase_pingpong_spritesheet_64x64_0
+      name: mueca_sin-confirmar_personajeBase_spritesheet_64x64_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0938107ca80235a43a21bf0a68180f51
-      internalID: 1752284667
+      spriteID: 15b219164a5dff6428beeb842c5bd4a6
+      internalID: -1777028615
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_personajeBase_pingpong_spritesheet_64x64_1
+      name: mueca_sin-confirmar_personajeBase_spritesheet_64x64_1
       rect:
         serializedVersion: 2
         x: 64
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04ff7650d77af7142a908affc3de45da
-      internalID: -633722813
+      spriteID: 90da3e0f7ecc7474983196831c0b5152
+      internalID: -1229140154
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_personajeBase_pingpong_spritesheet_64x64_2
+      name: mueca_sin-confirmar_personajeBase_spritesheet_64x64_2
       rect:
         serializedVersion: 2
         x: 128
@@ -179,8 +179,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f250b5608c0ebb409a05383353c050d
-      internalID: -2104163411
+      spriteID: 500261d282548134faaeffca3ba57e15
+      internalID: -181984767
       vertices: []
       indices: 
       edges: []
@@ -196,9 +196,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      idle_personajeBase_pingpong_spritesheet_64x64_0: 1752284667
-      idle_personajeBase_pingpong_spritesheet_64x64_1: -633722813
-      idle_personajeBase_pingpong_spritesheet_64x64_2: -2104163411
+      mueca_sin-confirmar_personajeBase_spritesheet_64x64_0: -1777028615
+      mueca_sin-confirmar_personajeBase_spritesheet_64x64_1: -1229140154
+      mueca_sin-confirmar_personajeBase_spritesheet_64x64_2: -181984767
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
