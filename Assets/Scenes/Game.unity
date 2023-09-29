@@ -757,7 +757,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 0.703125
+  orthographic size: 0.9042969
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1662,6 +1662,69 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4251590512901145290, guid: daf7fb76d4f4dac4e8647c53ef96471e, type: 3}
   m_PrefabInstance: {fileID: 1844738959}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2142009590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2142009593}
+  - component: {fileID: 2142009592}
+  - component: {fileID: 2142009591}
+  m_Layer: 0
+  m_Name: DigimochiManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2142009591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142009590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d76fd34fb706e2498220dacc6ab7860, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  digimochiTypes:
+  - {fileID: 11400000, guid: dfcfc78cd1acccd44b7912c678be7694, type: 2}
+  - {fileID: 11400000, guid: 6126b1dd255cc91429ce0ab7365880c6, type: 2}
+--- !u!114 &2142009592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142009590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69523068bbd9cd44a9d21a055b1b592c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userDigimochis:
+  - {fileID: 11400000, guid: e1ef3eee482e08843a36748fb0021dee, type: 2}
+  - {fileID: 11400000, guid: 2196e752de6ba924f8b036577bd46a81, type: 2}
+--- !u!4 &2142009593
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142009590}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!222 &1278826045079900774
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2022,6 +2085,7 @@ SceneRoots:
   - {fileID: 1141840932}
   - {fileID: 173853858}
   - {fileID: 306462822}
+  - {fileID: 2142009593}
   - {fileID: 492004423}
   - {fileID: 1555302698}
   - {fileID: 145947952}

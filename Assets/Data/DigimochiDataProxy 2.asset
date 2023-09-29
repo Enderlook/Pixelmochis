@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d2e50d830654df94aa7e9730d78dd9a4, type: 3}
-  m_Name: DigimochiDataProxy
+  m_Name: DigimochiDataProxy 2
   m_EditorClassIdentifier: 
-  name: Pepito
-  lastBathTimeString: 26092023
-  lastMedicineTimeString: 25092023
+  name: Josue
+  digimochiType: 1
+  lastBathTimeString: 23092023000000
+  lastMedicineTimeString: 22092023000000
