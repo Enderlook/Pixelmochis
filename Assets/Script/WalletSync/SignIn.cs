@@ -74,8 +74,8 @@ namespace Hackaton
         {
             Web3 instance = Web3.Instance;
             instance.rpcCluster = cluster;
-            instance.customRpc = GetClusterAddress(cluster);
-            instance.webSocketsRpc = GetClusterAddress(cluster);
+            instance.customRpc = GetCustomRPC(cluster);
+            instance.webSocketsRpc = GetWebSocketsRPC(cluster);
             await instance.LoginXNFT();
 
             PlayerPrefs.SetInt(KEY, (int)cluster);
@@ -114,11 +114,18 @@ namespace Hackaton
             }
         }
 
-        private static string GetClusterAddress(RpcCluster cluster) => cluster switch
+        private static string GetCustomRPC(RpcCluster cluster) => cluster switch
         {
             RpcCluster.MainNet => "https://rpc.magicblock.app/mainnet/",
             RpcCluster.DevNet => "https://rpc.magicblock.app/testnet/",
             RpcCluster.TestNet => "https://rpc.magicblock.app/devnet/",
+        };
+
+        private static string GetWebSocketsRPC(RpcCluster cluster) => cluster switch
+        {
+            RpcCluster.MainNet => "wss://rpc.magicblock.app/mainnet/",
+            RpcCluster.DevNet => "wss://rpc.magicblock.app/testnet/",
+            RpcCluster.TestNet => "wss://rpc.magicblock.app/devnet/",
         };
     }
 }
