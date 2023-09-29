@@ -8,6 +8,7 @@ public class DigimochiDataProxy : ScriptableObject, IDigimochiData
     public string name;
     [SerializeField] private int digimochiType;
     [SerializeField] private string lastBathTimeString; // Stored as "ddMMyyyyHHmmss"
+    [SerializeField] private string lastMealTimeString; // Stored as "ddMMyyyyHHmmss"
     [SerializeField] private string lastMedicineTimeString; // Stored as "ddMMyyyyHHmmss"
 
     private readonly CultureInfo provider = CultureInfo.InvariantCulture;
@@ -31,9 +32,14 @@ public class DigimochiDataProxy : ScriptableObject, IDigimochiData
         lastBathTimeString = dateTime.ToString(dateFormat);
     }
 
-    public DateTime GetLastMedicineTime()
+    public DateTime GetLastMealTime()
     {
         return DateTime.ParseExact(lastMedicineTimeString, dateFormat, provider);
+    }
+
+    public DateTime GetLastMedicineTime()
+    {
+        return DateTime.ParseExact(lastMealTimeString, dateFormat, provider);
     }
 
     public void SetLastMedicineTime(DateTime dateTime)

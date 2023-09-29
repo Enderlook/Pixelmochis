@@ -25,6 +25,14 @@ public class DigimochiOnChainData : IDigimochiData
         return DateTime.UnixEpoch;
     }
 
+    public DateTime GetLastMealTime()
+    {
+        // Implementar lógica para obtener el último baño desde la blockchain
+        // El formato de la fecha y hora debería ser "ddMMyyyyHHmmss"
+        // Esto es solo un placeholder. Deberías reemplazarlo por la lógica real para obtener el dato desde la blockchain.
+        return DateTime.UnixEpoch;
+    }
+
     public DateTime GetLastMedicineTime()
     {
         // Implementar lógica para obtener la última vez que se le dio medicina desde la blockchain
