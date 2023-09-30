@@ -1375,6 +1375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe9527373cf0e344945897130d14f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  digimochiManager: {fileID: 2142009592}
   nextButton: {fileID: 1043298360}
   previousButton: {fileID: 4251590513239187826}
   noDigimochisSign: {fileID: 1856362819}
@@ -2024,7 +2025,7 @@ MonoBehaviour:
   userDigimochis:
   - {fileID: 11400000, guid: e1ef3eee482e08843a36748fb0021dee, type: 2}
   - {fileID: 11400000, guid: 2196e752de6ba924f8b036577bd46a81, type: 2}
-  digimochiSelector: {fileID: 0}
+  digimochisContainer: {fileID: 0}
   digimochiPrefab: {fileID: 0}
 --- !u!4 &2142009593
 Transform:
