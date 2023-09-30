@@ -9,9 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6832188488395023161}
+  - component: {fileID: 7518743609968825849}
   - component: {fileID: 8756404352007934251}
   - component: {fileID: 2006189828535449675}
-  - component: {fileID: 7518743609968825849}
+  - component: {fileID: 4880312676196712902}
+  - component: {fileID: 1379586186491530640}
+  - component: {fileID: 6278591536289756719}
   m_Layer: 0
   m_Name: Digimochi
   m_TagString: Untagged
@@ -27,13 +30,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2857377570054869129}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7518743609968825849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2857377570054869129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae9c22ed649e07a48982d43e8f542174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  digimochiType: {fileID: 11400000, guid: dfcfc78cd1acccd44b7912c678be7694, type: 2}
 --- !u!212 &8756404352007934251
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -75,7 +91,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1752284667, guid: 1d1a09ae5fd42da4ca718a5d8f691efd, type: 3}
+  m_Sprite: {fileID: 198292795, guid: 1d1a09ae5fd42da4ca718a5d8f691efd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -131,7 +147,28 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6253185, y: 0.81822675}
   m_EdgeRadius: 0
---- !u!114 &7518743609968825849
+--- !u!95 &4880312676196712902
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2857377570054869129}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a4f7b6b4d511a184b95ef5f7c9545ba0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1379586186491530640
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,7 +177,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 2857377570054869129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae9c22ed649e07a48982d43e8f542174, type: 3}
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  digimochiType: {fileID: 0}
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 3a782bfc0fd36d74d8eca1397b8b798b, type: 3}
+--- !u!114 &6278591536289756719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2857377570054869129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 0.009161512
+  m_labelHash: 1.9027066e-19
+  m_SpriteKey: 0
+  m_SpriteHash: 224382732

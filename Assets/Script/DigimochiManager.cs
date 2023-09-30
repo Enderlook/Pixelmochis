@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,14 @@ public class DigimochiManager : MonoBehaviour
 {
     [SerializeField]
     private List<DigimochiDataProxy> userDigimochis;
+
+    [SerializeField]
+    private Transform digimochisContainer;
+
+    [SerializeField]
+    private Digimochi digimochiPrefab;
+
+    public event Action DigimochisLoaded;
 
     void Start()
     {
@@ -26,5 +35,10 @@ public class DigimochiManager : MonoBehaviour
             return userDigimochis[0];
         else
             return null; // El usuario no tiene Digimochis.
+    }
+
+    private void InstantieDigimochis()
+    {
+       
     }
 }
