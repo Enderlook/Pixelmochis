@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.U2D.Animation;
 
 [CreateAssetMenu(fileName = "DigimochiType", menuName = "Digimochis/DigimochiTypeSO")]
-public class DigimochiTypeSO : ScriptableObject
+public class DigimochiSO : ScriptableObject
 {
-    public string digimochiTypeName;
+    public string digimochiType;
     public Sprite digimochiMainSprite;
     public SpriteLibraryAsset spriteLibraryIdleAnimation;
 }

@@ -4,10 +4,8 @@ using UnityEngine;
 public interface IDigimochiData
 {
     string GetName();
-    public int GetDigimochiType();
+    public string GetDigimochiType();
     DateTime GetLastBathTime();
     DateTime GetLastMealTime();
     DateTime GetLastMedicineTime();
-    
-    // Agregar datos faltantes
 }

@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5bb961687a697b44a6d0f17276663ee, type: 3}
   m_Name: DiabloRojo
   m_EditorClassIdentifier: 
-  digimochiTypeName: Red Devil
-  digimochiMainSprite: {fileID: 21300000, guid: 98c52b3f7eaae5e4180303337ad1fc92, type: 3}
+  digimochiType: DiabloRojo
+  digimochiMainSprite: {fileID: -1758030427, guid: 98c52b3f7eaae5e4180303337ad1fc92, type: 3}
+  spriteLibraryIdleAnimation: {fileID: 7108339969198208228, guid: e3bf514b8e045f1489341fb927ed16e6, type: 3}

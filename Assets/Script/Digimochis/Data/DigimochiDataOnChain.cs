@@ -11,10 +11,10 @@ public class DigimochiOnChainData : IDigimochiData
         return "NombreDesdeBlockchain";
     }
 
-    public int GetDigimochiType()
+    public string GetDigimochiType()
     {
         // Implementar averiguar que tipo de digimochi es (que especie).
-        return 0;
+        return string.Empty;
     }
 
     public DateTime GetLastBathTime()

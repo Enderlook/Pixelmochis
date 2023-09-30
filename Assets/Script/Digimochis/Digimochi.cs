@@ -5,15 +5,15 @@ public class Digimochi : MonoBehaviour
 {
     [SerializeField] private SpriteLibrary animationSpriteLibrary;
 
-    private DigimochiTypeSO digimochiType;
+    private DigimochiSO digimochiType;
     private IDigimochiData digimochiData;
 
     private void Start()
     {
-        Setup();
+        Initialize();
     }
 
-    public void SetDigimochiType(DigimochiTypeSO type)
+    public void SetDigimochiType(DigimochiSO type)
     {
         digimochiType = type;
     }
@@ -23,8 +23,9 @@ public class Digimochi : MonoBehaviour
         digimochiData = data;
     }
 
-    public void Setup() 
+    public void Initialize() 
     {
-        animationSpriteLibrary = GetComponent<SpriteLibrary>();
+        gameObject.name = $"Digimochi_{digimochiType.digimochiType}";
+        animationSpriteLibrary.spriteLibraryAsset = digimochiType.spriteLibraryIdleAnimation;
     }
 }

@@ -6,7 +6,7 @@ using System.Globalization;
 public class DigimochiDataProxy : ScriptableObject, IDigimochiData
 {
     public string name;
-    [SerializeField] private int digimochiType;
+    [SerializeField] private string digimochiType;
     [SerializeField] private string lastBathTimeString; // Stored as "ddMMyyyyHHmmss"
     [SerializeField] private string lastMealTimeString; // Stored as "ddMMyyyyHHmmss"
     [SerializeField] private string lastMedicineTimeString; // Stored as "ddMMyyyyHHmmss"
@@ -16,7 +16,7 @@ public class DigimochiDataProxy : ScriptableObject, IDigimochiData
 
     public string GetName() => name;
 
-    public int GetDigimochiType()
+    public string GetDigimochiType()
     {
         // Implementar averiguar que tipo de digimochi es (que especie).
         return digimochiType;

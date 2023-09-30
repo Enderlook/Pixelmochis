@@ -1,13 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: Hacer que la escala no dependa de la resolucion del usuario
 public class CursorController : MonoBehaviour
 {
     [SerializeField] private CursorSet defaultCursorSet;
     private CursorSet currentSet;
-    [SerializeField] private float cursorScale = 1.0f; // Escala inicial del cursor
+    [SerializeField] private float cursorScale = 1.0f; 
 
     [Serializable]
     private struct CursorSet

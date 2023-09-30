@@ -31,21 +31,21 @@ public class DigimochiSelector : MonoBehaviour
         digimochiManager.DigimochisLoaded -= OnDigimochisLoaded;
     }
 
-    private void Start()
+    private void OnDigimochisLoaded(List<Digimochi> digimochis)
     {
-        // Debug
-        OnDigimochisLoaded();
-    }
+        if(digimochis == null)
+        {
+            UpdateCurrentDigimochi();
+            return;
+        }
 
-    private void OnDigimochisLoaded()
-    {
-        GetDigimochis();
+        this.digimochis = digimochis;
+        for (int i = 0; i < digimochis.Count; i++)
+        {
+            digimochis[i].transform.SetParent(transform.transform, false);
+        }
+
         UpdateCurrentDigimochi();
-    }
-
-    private void GetDigimochis()
-    {
-        digimochis = GetComponentsInChildren<Digimochi>().ToList();
     }
 
     private void PreviousDigimochi()
@@ -80,7 +80,7 @@ public class DigimochiSelector : MonoBehaviour
     {
         bool hasDigimochis = digimochis.Count > 0;
 
-        SetButtonsInteractable(hasDigimochis);
+        SetButtonsInteractable(digimochis.Count > 1);
         noDigimochisSign.SetActive(!hasDigimochis);
 
         for (int i = 0; i < digimochis.Count; i++)
