@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5bb961687a697b44a6d0f17276663ee, type: 3}
-  m_Name: DiabloAzul
+  m_Name: DigimochiSOData_DiabloRojo
   m_EditorClassIdentifier: 
-  digimochiType: DiabloAzul
-  digimochiMainSprite: {fileID: 938712829, guid: 66863ef75d0935c49a5b2d3743cf83a7, type: 3}
-  spriteLibraryIdleAnimation: {fileID: 7108339969198208228, guid: e186be136730a1e4390cfb4a45935c02, type: 3}
+  digimochiType: DiabloRojo
+  digimochiMainSprite: {fileID: -1758030427, guid: 98c52b3f7eaae5e4180303337ad1fc92, type: 3}
+  spriteLibraryIdleAnimation: {fileID: 7108339969198208228, guid: e3bf514b8e045f1489341fb927ed16e6, type: 3}

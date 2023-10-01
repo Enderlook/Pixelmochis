@@ -5,7 +5,7 @@ using System.Globalization;
 [CreateAssetMenu(fileName = "DigimochiLocalData", menuName = "Digimochis/DigimochiLocalData")]
 public class DigimochiDataProxy : ScriptableObject, IDigimochiData
 {
-    public string name;
+    private string name;
     [SerializeField] private string digimochiType;
     [SerializeField] private string lastBathTimeString; // Stored as "ddMMyyyyHHmmss"
     [SerializeField] private string lastMealTimeString; // Stored as "ddMMyyyyHHmmss"
