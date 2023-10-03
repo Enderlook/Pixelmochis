@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: Idle
+    m_Hash: 1008081451
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: idle_personajeBase_pingpong_spritesheet_64x64_0
+      m_Hash: 543203783
+      m_Sprite: {fileID: 198292795, guid: 1d1a09ae5fd42da4ca718a5d8f691efd, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 198292795, guid: 1d1a09ae5fd42da4ca718a5d8f691efd, type: 3}
+    - m_Name: idle_personajeBase_pingpong_spritesheet_64x64_1
+      m_Hash: 392663377
+      m_Sprite: {fileID: -1865378429, guid: 1d1a09ae5fd42da4ca718a5d8f691efd, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1865378429, guid: 1d1a09ae5fd42da4ca718a5d8f691efd, type: 3}
+    - m_Name: idle_personajeBase_pingpong_spritesheet_64x64_2
+      m_Hash: 242139371
+      m_Sprite: {fileID: 2109142173, guid: 1d1a09ae5fd42da4ca718a5d8f691efd, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 2109142173, guid: 1d1a09ae5fd42da4ca718a5d8f691efd, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 3
+  - m_Name: Eat
+    m_Hash: 580811258
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: comer_personajeBase_spritesheet_64x64_0
+      m_Hash: 865863149
+      m_Sprite: {fileID: -833701650, guid: 5c97749ab3a10474d94b8a6b5d5f7d5b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -833701650, guid: 5c97749ab3a10474d94b8a6b5d5f7d5b, type: 3}
+    - m_Name: comer_personajeBase_spritesheet_64x64_1
+      m_Hash: 77280635
+      m_Sprite: {fileID: 1371895337, guid: 5c97749ab3a10474d94b8a6b5d5f7d5b, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1371895337, guid: 5c97749ab3a10474d94b8a6b5d5f7d5b, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 2
+  m_PrimaryLibraryGUID: 
+  m_ModificationHash: 638318763827532813
+  m_Version: 1
