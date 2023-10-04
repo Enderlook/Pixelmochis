@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultCursorSet:
-    normal: {fileID: 825932177, guid: d059f12a30bea6345b1427be707e9130, type: 3}
-    clicked: {fileID: 777962594, guid: d059f12a30bea6345b1427be707e9130, type: 3}
+    normal: {fileID: 192600217, guid: d059f12a30bea6345b1427be707e9130, type: 3}
+    clicked: {fileID: -151575346, guid: d059f12a30bea6345b1427be707e9130, type: 3}
   cursorScale: 16
 --- !u!4 &11811909
 Transform:
@@ -2050,7 +2050,7 @@ PrefabInstance:
       objectReference: {fileID: 198292795, guid: 1d1a09ae5fd42da4ca718a5d8f691efd, type: 3}
     - target: {fileID: 5072649990357052828, guid: 492f077714ee46943874bcddf20c938e, type: 3}
       propertyPath: m_Color.a
-      value: 0.5019608
+      value: 0.8666667
       objectReference: {fileID: 0}
     - target: {fileID: 6832188488395023161, guid: 492f077714ee46943874bcddf20c938e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2094,7 +2094,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7518743609968825849, guid: 492f077714ee46943874bcddf20c938e, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7518743609968825849, guid: 492f077714ee46943874bcddf20c938e, type: 3}
+      propertyPath: healthyLevel
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e50d830654df94aa7e9730d78dd9a4, type: 3}
   m_Name: DigimochiDataProxy_DiabloRojo
   m_EditorClassIdentifier: 
-  name: Pepito
+  digimochiName: Pepe el sanguinario
   digimochiType: DiabloRojo
   lastBathTimeString: 26092023000000
   lastMealTimeString: 26092023000000

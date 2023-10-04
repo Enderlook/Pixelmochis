@@ -19,7 +19,6 @@ public class DigimochiManager : MonoBehaviour
     [SerializeField]
     private GameObject loadingDigimochisSign;
 
-
     public event Action<List<Digimochi>> DigimochisLoaded;
 
     private  List<Digimochi> digimochisIntantied = new List<Digimochi>();
@@ -38,13 +37,15 @@ public class DigimochiManager : MonoBehaviour
     public IEnumerator SyncUserDigimochis()
     {
         loadingDigimochisSign.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         // Aquí llamas a la API o la clase que te permite obtener los Digimochis del usuario desde la blockchain.
-        // Añade cada Digimochi obtenido a la lista userDigimochis.
+        // userDigimochis = Obtener data de la blockchain y parsearla a la clase de blockchain que implemente IDigimochiData
 
+        // Removemos cualquier digimochi que pueda ser nulo.
         userDigimochis.RemoveAll(x => x == null);
 
+        //Si hay digimochis los instanciamos
         if (userDigimochis.Count > 0 && userDigimochis != null)
         {
             InstantieDigimochis();
@@ -66,7 +67,7 @@ public class DigimochiManager : MonoBehaviour
         {
             foreach (var digimochi in digimochisIntantied)
             {
-                Destroy(digimochi);
+                Destroy(digimochi.gameObject);
             }
             digimochisIntantied = new List<Digimochi>();
         }
@@ -76,9 +77,9 @@ public class DigimochiManager : MonoBehaviour
             var userDigimochiData = userDigimochis[i];
             var digimochi = Instantiate(digimochiPrefab);
             digimochisIntantied.Add(digimochi);
-            digimochi.SetDigimochiType(
-                digimochiGlossary.GetDigimochiTypeSO(userDigimochiData.GetDigimochiType()
-                ));
+
+            var digimochiSOFromGlossary = digimochiGlossary.GetDigimochiSO(userDigimochiData.GetDigimochiType());
+            digimochi.SetDigimochiSO(digimochiSOFromGlossary);
             digimochi.SetDigimochiData(userDigimochiData);
             digimochi.Initialize();
         }

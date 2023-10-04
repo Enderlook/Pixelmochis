@@ -2,10 +2,12 @@ using System;
 using UnityEngine;
 using System.Globalization;
 
+// Clase que simula ser la data de la blockchain, pero sus metodos enves de obtener la data
+// desde la blockchain, directamente la toma del valor seteado en el scriptableObject
 [CreateAssetMenu(fileName = "DigimochiLocalData", menuName = "Digimochis/DigimochiLocalData")]
 public class DigimochiDataProxy : ScriptableObject, IDigimochiData
 {
-    private string name;
+    [SerializeField] private string digimochiName;
     [SerializeField] private string digimochiType;
     [SerializeField] private string lastBathTimeString; // Stored as "ddMMyyyyHHmmss"
     [SerializeField] private string lastMealTimeString; // Stored as "ddMMyyyyHHmmss"
@@ -14,13 +16,9 @@ public class DigimochiDataProxy : ScriptableObject, IDigimochiData
     private readonly CultureInfo provider = CultureInfo.InvariantCulture;
     private const string dateFormat = "ddMMyyyyHHmmss";
 
-    public string GetName() => name;
+    public string GetName() => digimochiName;
 
-    public string GetDigimochiType()
-    {
-        // Implementar averiguar que tipo de digimochi es (que especie).
-        return digimochiType;
-    }
+    public string GetDigimochiType() => digimochiType;
 
     public DateTime GetLastBathTime()
     {

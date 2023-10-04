@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,12 +15,16 @@ public class DigimochiSelector : MonoBehaviour
 
     private int digimochiIndex;
 
+    public event Action<Digimochi> DigimochiSelected;
+
     private void Awake()
     {
         nextButton.onClick.AddListener(NextDigimochi);
         previousButton.onClick.AddListener(PreviousDigimochi);
 
         digimochiManager.DigimochisLoaded += OnDigimochisLoaded;
+
+        SetButtonsInteractable(false);
     }
 
     private void OnDestroy()
@@ -87,6 +91,8 @@ public class DigimochiSelector : MonoBehaviour
         {
             digimochis[i].gameObject.SetActive(i == digimochiIndex);
         }
+
+        DigimochiSelected?.Invoke(digimochis[digimochiIndex]);
     }
 
     private void SetButtonsInteractable(bool interactable)
