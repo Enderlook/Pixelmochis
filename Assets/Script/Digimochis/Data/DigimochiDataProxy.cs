@@ -25,23 +25,14 @@ public class DigimochiDataProxy : ScriptableObject, IDigimochiData
         return DateTime.ParseExact(lastBathTimeString, dateFormat, provider);
     }
 
-    public void SetLastBathTime(DateTime dateTime)
-    {
-        lastBathTimeString = dateTime.ToString(dateFormat);
-    }
-
     public DateTime GetLastMealTime()
-    {
-        return DateTime.ParseExact(lastMedicineTimeString, dateFormat, provider);
-    }
-
-    public DateTime GetLastMedicineTime()
     {
         return DateTime.ParseExact(lastMealTimeString, dateFormat, provider);
     }
 
-    public void SetLastMedicineTime(DateTime dateTime)
+    public DateTime GetLastMedicineTime()
     {
-        lastMedicineTimeString = dateTime.ToString(dateFormat);
+        return DateTime.ParseExact(lastMedicineTimeString, dateFormat, provider);
     }
+
 }

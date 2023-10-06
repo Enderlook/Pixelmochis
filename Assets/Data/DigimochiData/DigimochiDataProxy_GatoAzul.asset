@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   digimochiName: ElGato
   digimochiType: GatoAzul
-  lastBathTimeString: 26092023000000
-  lastMealTimeString: 26092023000000
-  lastMedicineTimeString: 25092023000000
+  lastBathTimeString: 23092023000000
+  lastMealTimeString: 23092023000000
+  lastMedicineTimeString: 23092023000000

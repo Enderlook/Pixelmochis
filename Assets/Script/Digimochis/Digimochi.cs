@@ -1,4 +1,5 @@
 using EasyButtons;
+using System;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
@@ -19,26 +20,37 @@ public class Digimochi : MonoBehaviour
     private int sickLevel;
 
     [Header("State Thresholds")]
-    [SerializeField,Tooltip("Time in seconds to get dirty")] 
-    private int timeToGetDirty = 86400;
+    [SerializeField, Min(1),Tooltip("Time in days to get dirty")] 
+    private int daysToGetDirty = 1;
 
-    [SerializeField, Tooltip("Time in seconds to get hungry")] 
-    private int timeToGetHungry = 86400;
+    [SerializeField,Min(1), Tooltip("Time in days to get hungry")] 
+    private int daysToGetHungry = 1;
 
-    [SerializeField, Tooltip("Time in seconds to get sick")]
-    private int timeToGetSick = 86400;
+    [SerializeField, Min(1), Tooltip("Time in days to get sick")]
+    private int daysToGetSick = 1;
+
+    [Header("States")]
+    [SerializeField] private State feedState;
+
 
     private float life;
     private DigimochiSO digimochiSO;
     private IDigimochiData digimochiData;
 
-    private enum DigimochiAnimations
+    public enum DigimochiAnimations
     {
         Idle,
         Feed,
         Cure,
         Pet,
         Dance
+    }
+
+    private enum DigimochiStates
+    {
+        Hungry,
+        Dirty,
+        Sick
     }
 
     public IDigimochiData DigimochiData => digimochiData;
@@ -48,12 +60,40 @@ public class Digimochi : MonoBehaviour
     private void Start()
     {
         Initialize();
+
+        //TO DO: States
+
+        Debug.Log($"Is Hungry? {IsHungry()}");
+        // if IsHungry() Enable State Hungry
+
+        Debug.Log($"Is Sick? {IsSick()}");
+        // if IsSick() Enable State Hungry
+
+        Debug.Log($"Is Dirty? {IsDirty()}");
+        // if IsDirty() Enable State Hungry
     }
+
+
+    private bool IsHungry()
+    {
+        return IsDateExpired(digimochiData.GetLastMealTime(), daysToGetHungry);
+    }
+
+    private bool IsSick()
+    {
+        return IsDateExpired(digimochiData.GetLastMedicineTime(), daysToGetSick);
+    }
+
+    private bool IsDirty()
+    {
+        return IsDateExpired(digimochiData.GetLastBathTime(), daysToGetDirty);
+    }
+
 
     [Button]
     private void FeedAction()
     {
-        //SetAnimation(DigimochiAnimations.Feed);
+        feedState.EnableState();
     }
 
     [Button]
@@ -75,12 +115,40 @@ public class Digimochi : MonoBehaviour
     }
 
     [Button]
-    private  void SetAnimation(DigimochiAnimations animation)
+    public void SetAnimation(DigimochiAnimations animation)
     {
         for (int i = 0; i < animators.Length; i++)
         {
             animators[i].SetFloat("Blend", (int)animation);
         }
+    }
+    private bool IsDateExpired(DateTime date, int daysTreshold, bool debug = false)
+    {
+        DateTime todayDateTime = DateTime.Now;
+
+        // Calculate the time difference
+        TimeSpan timeSinceLastMeal = todayDateTime - date;
+
+        // Check if the time difference is greater than daysToGetHungry
+        bool isExpired = timeSinceLastMeal.TotalDays > daysTreshold;
+
+        if (debug)
+        {
+            if (isExpired)
+            {
+                Debug.Log("Date expired");
+            }
+            else
+            {
+                Debug.Log("The date did not expire");
+            }
+
+            Debug.Log("Start date: " + date.ToString("dd/MM/yyyy HH:mm:ss"));
+            Debug.Log("Today's date: " + todayDateTime.ToString("dd/MM/yyyy HH:mm:ss"));
+            Debug.Log("Number of days between start and today: " + (int)timeSinceLastMeal.TotalDays);
+        }
+
+        return isExpired;
     }
 
     public void SetDigimochiSO(DigimochiSO type)
