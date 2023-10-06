@@ -53,7 +53,7 @@ public class Digimochi : MonoBehaviour
     [Button]
     private void FeedAction()
     {
-        SetAnimation(DigimochiAnimations.Feed);
+        //SetAnimation(DigimochiAnimations.Feed);
     }
 
     [Button]

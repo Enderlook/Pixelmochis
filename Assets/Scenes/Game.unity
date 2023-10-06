@@ -2032,6 +2032,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1311822468}
     m_Modifications:
+    - target: {fileID: 975886636890145250, guid: 492f077714ee46943874bcddf20c938e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2857377570054869129, guid: 492f077714ee46943874bcddf20c938e, type: 3}
       propertyPath: m_Name
       value: DigimochiTemplate
@@ -2143,6 +2147,10 @@ MonoBehaviour:
   digimochiTypes:
   - {fileID: 11400000, guid: dfcfc78cd1acccd44b7912c678be7694, type: 2}
   - {fileID: 11400000, guid: 6126b1dd255cc91429ce0ab7365880c6, type: 2}
+  - {fileID: 11400000, guid: b9c16c3fb3efc2a42a5308bb825f9b06, type: 2}
+  - {fileID: 11400000, guid: f2dbec24bb7d8164882dde575b69b03c, type: 2}
+  - {fileID: 11400000, guid: b6e244150d5ce794eb72b61cb871d935, type: 2}
+  - {fileID: 11400000, guid: 7128cb81792617d4297d74afba7d09b9, type: 2}
 --- !u!114 &2142009592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2158,6 +2166,10 @@ MonoBehaviour:
   userDigimochis:
   - {fileID: 11400000, guid: 2196e752de6ba924f8b036577bd46a81, type: 2}
   - {fileID: 11400000, guid: e1ef3eee482e08843a36748fb0021dee, type: 2}
+  - {fileID: 11400000, guid: 2c37a3285f3a245478da3057b83c3f4c, type: 2}
+  - {fileID: 11400000, guid: e3ecca4d3b4a3e74994a7be3308b1758, type: 2}
+  - {fileID: 11400000, guid: b7110733142020545b5cbb21b80b7bf6, type: 2}
+  - {fileID: 11400000, guid: 5e7656d809c167d44b98fc0334ef9a47, type: 2}
   digimochiGlossary: {fileID: 2142009591}
   digimochiPrefab: {fileID: 7518743609968825849, guid: 492f077714ee46943874bcddf20c938e, type: 3}
   loadingDigimochisSign: {fileID: 116250509}

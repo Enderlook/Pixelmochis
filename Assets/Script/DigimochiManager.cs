@@ -75,10 +75,14 @@ public class DigimochiManager : MonoBehaviour
         for (int i = 0; i < userDigimochis.Count; i++)
         {
             var userDigimochiData = userDigimochis[i];
+
+            var digimochiSOFromGlossary = digimochiGlossary.FindDigimochiSO(userDigimochiData.GetDigimochiType());
+            if (digimochiSOFromGlossary == null)
+                continue;
+
             var digimochi = Instantiate(digimochiPrefab);
             digimochisIntantied.Add(digimochi);
-
-            var digimochiSOFromGlossary = digimochiGlossary.GetDigimochiSO(userDigimochiData.GetDigimochiType());
+            
             digimochi.SetDigimochiSO(digimochiSOFromGlossary);
             digimochi.SetDigimochiData(userDigimochiData);
             digimochi.Initialize();

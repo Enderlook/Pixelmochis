@@ -6,7 +6,7 @@ public class DigimochiGlossary : MonoBehaviour
     // Asegúrate de asignar los ScriptableObjects de los tipos de Digimochi en el inspector de Unity.
     [SerializeField] private List<DigimochiSO> digimochiTypes;
 
-    public DigimochiSO GetDigimochiSO(string digimochiType)
+    public DigimochiSO FindDigimochiSO(string digimochiType)
     {
         // Buscar el ScriptableObject en la lista por nombre.
         DigimochiSO foundDigimochiType = digimochiTypes.Find(type => type.digimochiType == digimochiType);

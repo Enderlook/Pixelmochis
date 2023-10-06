@@ -34,8 +34,8 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 1809205840, guid: b02de160a2d767e489d4054b72d43715, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 3
-  - m_Name: Eat
-    m_Hash: 580811258
+  - m_Name: Feed
+    m_Hash: 57863061
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: comer_personajeBase_spritesheet_64x64_0
@@ -50,6 +50,64 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 1068824761, guid: 3252cbcadc6a9524fb97fa0a373ee17f, type: 3}
     m_FromMain: 1
     m_EntryOverrideCount: 2
+  - m_Name: Cure
+    m_Hash: 437128407
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: curar_personajeBase_spritesheet_64x64_0
+      m_Hash: 64434456
+      m_Sprite: {fileID: 1632137478, guid: f4791dadffbe3374eb562bca5ea59a35, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1916904196, guid: ff72ad5b5a93b8042b236789edd743e4, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 1
+  - m_Name: Pet
+    m_Hash: 471850341
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: acariciar_personajeBase_spritesheet_64x64_0
+      m_Hash: 558509132
+      m_Sprite: {fileID: 374511081, guid: fef54254b3204fa45bbabb0f4ec12304, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1008084885, guid: 7af4ad5525e60a64fa70005f5f99dc82, type: 3}
+    - m_Name: acariciar_personajeBase_spritesheet_64x64_1
+      m_Hash: 374152410
+      m_Sprite: {fileID: 657259961, guid: fef54254b3204fa45bbabb0f4ec12304, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 305408338, guid: 7af4ad5525e60a64fa70005f5f99dc82, type: 3}
+    - m_Name: acariciar_personajeBase_spritesheet_64x64_2
+      m_Hash: 256134496
+      m_Sprite: {fileID: -29215293, guid: fef54254b3204fa45bbabb0f4ec12304, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -384077748, guid: 7af4ad5525e60a64fa70005f5f99dc82, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 3
+  - m_Name: Dance
+    m_Hash: 428528235
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: bailar_personajeBase_spritesheet_64x64_0
+      m_Hash: 920237152
+      m_Sprite: {fileID: 837265602, guid: c1b083068aacd434f96312ad0df66026, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1937429491, guid: 037eeffb437a1cf4cb7136054efaadae, type: 3}
+    - m_Name: bailar_personajeBase_spritesheet_64x64_1
+      m_Hash: 31360246
+      m_Sprite: {fileID: -1529727377, guid: c1b083068aacd434f96312ad0df66026, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: -1456896890, guid: 037eeffb437a1cf4cb7136054efaadae, type: 3}
+    - m_Name: bailar_personajeBase_spritesheet_64x64_2
+      m_Hash: 416798028
+      m_Sprite: {fileID: 860665257, guid: c1b083068aacd434f96312ad0df66026, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 64839844, guid: 037eeffb437a1cf4cb7136054efaadae, type: 3}
+    - m_Name: bailar_personajeBase_spritesheet_64x64_3
+      m_Hash: 802219482
+      m_Sprite: {fileID: -1185480073, guid: c1b083068aacd434f96312ad0df66026, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 563915262, guid: 037eeffb437a1cf4cb7136054efaadae, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 4
   m_PrimaryLibraryGUID: 3a782bfc0fd36d74d8eca1397b8b798b
-  m_ModificationHash: 638319685517119083
+  m_ModificationHash: 638320575793709220
   m_Version: 1
