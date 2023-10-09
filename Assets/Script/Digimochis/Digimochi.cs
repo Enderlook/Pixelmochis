@@ -103,7 +103,7 @@ public class Digimochi : MonoBehaviour
     }
 
     [Button]
-    private void CleanAction()
+    private void BathAction()
     {
 
     }

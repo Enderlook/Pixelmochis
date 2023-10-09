@@ -152,9 +152,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4a527eaf7c9ef43b421e00227fdfd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultCursorSet:
+  cursorPresets:
+  - name: Default
     normal: {fileID: 192600217, guid: d059f12a30bea6345b1427be707e9130, type: 3}
     clicked: {fileID: -151575346, guid: d059f12a30bea6345b1427be707e9130, type: 3}
+  - name: Bath
+    normal: {fileID: -2088706654, guid: 406f8e37dee25294f9d5329e4aaf32ca, type: 3}
+    clicked: {fileID: -1671031447, guid: 406f8e37dee25294f9d5329e4aaf32ca, type: 3}
+  - name: Feed
+    normal: {fileID: 668188446, guid: 14ceadd06a65cc142be7425ef8cfae3a, type: 3}
+    clicked: {fileID: 52650429, guid: 14ceadd06a65cc142be7425ef8cfae3a, type: 3}
+  - name: Cure
+    normal: {fileID: 1922085464, guid: 7367f82309335df43a1aaf734c77c775, type: 3}
+    clicked: {fileID: 192904240, guid: 7367f82309335df43a1aaf734c77c775, type: 3}
+  - name: Dance
+    normal: {fileID: -2072128172, guid: 709cab0c4ca14d942a55226a922e2eb5, type: 3}
+    clicked: {fileID: -1029852372, guid: 709cab0c4ca14d942a55226a922e2eb5, type: 3}
   cursorScale: 16
 --- !u!4 &11811909
 Transform:
@@ -1583,6 +1596,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1713941769}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1425243324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1425243326}
+  - component: {fileID: 1425243325}
+  m_Layer: 0
+  m_Name: PlayerController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1425243325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425243324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84911bdf83be6a24bbf18a1a507cea50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorController: {fileID: 11811908}
+--- !u!4 &1425243326
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425243324}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1498811371
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,6 +2227,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   userDigimochis:
   - {fileID: 11400000, guid: 2196e752de6ba924f8b036577bd46a81, type: 2}
+  - {fileID: 11400000, guid: e1ef3eee482e08843a36748fb0021dee, type: 2}
+  - {fileID: 11400000, guid: 2c37a3285f3a245478da3057b83c3f4c, type: 2}
+  - {fileID: 11400000, guid: e3ecca4d3b4a3e74994a7be3308b1758, type: 2}
+  - {fileID: 11400000, guid: b7110733142020545b5cbb21b80b7bf6, type: 2}
+  - {fileID: 11400000, guid: 5e7656d809c167d44b98fc0334ef9a47, type: 2}
   digimochiGlossary: {fileID: 2142009591}
   digimochiPrefab: {fileID: 7518743609968825849, guid: 492f077714ee46943874bcddf20c938e, type: 3}
   loadingDigimochisSign: {fileID: 116250509}
@@ -2352,7 +2415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -2558,6 +2621,7 @@ SceneRoots:
   - {fileID: 1141840932}
   - {fileID: 11811909}
   - {fileID: 2142009593}
+  - {fileID: 1425243326}
   - {fileID: 173853858}
   - {fileID: 1311822468}
   - {fileID: 1555302698}

@@ -1,24 +1,28 @@
+using EasyButtons;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // TODO: Hacer que la escala no dependa de la resolucion del usuario
 public class CursorController : MonoBehaviour
 {
-    [SerializeField] private CursorSet defaultCursorSet;
-    private CursorSet currentSet;
+    [SerializeField] private List<CursorPreset> cursorPresets;
     [SerializeField] private float cursorScale = 1.0f; 
 
+    private CursorPreset currentSet;
+
     [Serializable]
-    private struct CursorSet
+    private struct CursorPreset
     {
+        public string name;
         public Sprite normal;
         public Sprite clicked;
     }
 
     private void Awake()
     {
-        currentSet = defaultCursorSet;
-        ChangeCursor(currentSet.normal);
+        SetCursorPreset("Default");
         Cursor.lockState = CursorLockMode.None;
     }
 
@@ -26,6 +30,15 @@ public class CursorController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)) ChangeCursor(currentSet.clicked);
         if (Input.GetMouseButtonUp(0)) ChangeCursor(currentSet.normal);
+    }
+
+    [Button]
+    private void SetCursorPreset(string name)
+    {
+        var preset = cursorPresets.Find(x => x.name == name);
+       
+        if(!preset.Equals(null))
+             currentSet = preset;
     }
 
     private void ChangeCursor(Sprite sprite)
