@@ -89,7 +89,17 @@ public class DigimochiSelector : MonoBehaviour
 
         for (int i = 0; i < digimochis.Count; i++)
         {
-            digimochis[i].gameObject.SetActive(i == digimochiIndex);
+            if (i == digimochiIndex)
+            {
+                digimochis[i].gameObject.SetActive(true);
+                digimochis[digimochiIndex].ActiveDigimochi();
+            }
+            else 
+            {
+                digimochis[digimochiIndex].DisableDigimochi();
+                digimochis[i].gameObject.SetActive(false);
+            }
+
         }
 
         DigimochiSelected?.Invoke(digimochis[digimochiIndex]);
@@ -97,8 +107,8 @@ public class DigimochiSelector : MonoBehaviour
 
     private void SetButtonsInteractable(bool interactable)
     {
-        nextButton.interactable = interactable;
-        previousButton.interactable = interactable;
+        nextButton.gameObject.SetActive(interactable);
+        previousButton.gameObject.SetActive(interactable);
     }
 
 }

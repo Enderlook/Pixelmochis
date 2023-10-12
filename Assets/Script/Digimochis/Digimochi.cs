@@ -1,5 +1,7 @@
 using EasyButtons;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
@@ -30,12 +32,12 @@ public class Digimochi : MonoBehaviour
     private int daysToGetSick = 1;
 
     [Header("States")]
-    [SerializeField] private State feedState;
+    [SerializeField] private List<DigimochiState> states;
 
-
-    private float life;
     private DigimochiSO digimochiSO;
     private IDigimochiData digimochiData;
+    private HapinessBarController hapinessBar;
+    private bool isActive;
 
     public enum DigimochiAnimations
     {
@@ -46,33 +48,94 @@ public class Digimochi : MonoBehaviour
         Dance
     }
 
-    private enum DigimochiStates
-    {
-        Hungry,
-        Dirty,
-        Sick
-    }
-
     public IDigimochiData DigimochiData => digimochiData;
     public DigimochiSO DigimochiSO => digimochiSO;
-
 
     private void Start()
     {
         Initialize();
-
-        //TO DO: States
-
-        Debug.Log($"Is Hungry? {IsHungry()}");
-        // if IsHungry() Enable State Hungry
-
-        Debug.Log($"Is Sick? {IsSick()}");
-        // if IsSick() Enable State Hungry
-
-        Debug.Log($"Is Dirty? {IsDirty()}");
-        // if IsDirty() Enable State Hungry
+        UpdateCurrentState();
     }
 
+    public void ActiveDigimochi()
+    {
+        isActive = true;
+        UpdateCurrentState();
+    }
+
+    public void DisableDigimochi()
+    {
+        isActive = false;
+    }
+
+    private void UpdateCurrentState()
+    {
+        Debug.Log($"Is Hungry? {IsHungry()}");
+        SetState(DigimochiState.StateTypes.Hungry, IsHungry());
+
+        Debug.Log($"Is Sick? {IsSick()}");
+        SetState(DigimochiState.StateTypes.Sick, IsSick());
+
+        Debug.Log($"Is Dirty? {IsDirty()}");
+        SetState(DigimochiState.StateTypes.Dirty, IsDirty());
+
+        UpdateHapinessBar();
+    }
+
+    private void UpdateHapinessBar()
+    {
+        //TODO: Definir mejor las condiciones que manejan la felicidad
+        var statesActiveCount = states.Where(x => x.IsStateActive).Count();
+
+        if( statesActiveCount == 0 )
+        {
+            hapinessBar.SetHapinessState
+               (HapinessBarController.HapinessState.VeryHappy);
+
+            return;
+        }
+
+        if (statesActiveCount == 1)
+        {
+            hapinessBar.SetHapinessState
+               (HapinessBarController.HapinessState.Happy);
+
+            return;
+        }
+
+        if (statesActiveCount == 2)
+        {
+            hapinessBar.SetHapinessState
+               (HapinessBarController.HapinessState.Normal);
+
+            return;
+        }
+
+        if (statesActiveCount >= 3)
+        {
+            hapinessBar.SetHapinessState
+               (HapinessBarController.HapinessState.Sad);
+
+            return;
+        }
+    }
+
+    [Button]
+    private void SetState(DigimochiState.StateTypes stateType, bool toggle)
+    {
+        Debug.Log($"Set state: {stateType} {toggle}");
+
+        var stateToEnable = states.Find(x => x.StateType == stateType);
+
+        if (toggle)
+        {
+            stateToEnable.EnableState();
+        }
+        else
+        {
+            stateToEnable.DisableState();
+        }
+    }
 
     private bool IsHungry()
     {
@@ -89,31 +152,6 @@ public class Digimochi : MonoBehaviour
         return IsDateExpired(digimochiData.GetLastBathTime(), daysToGetDirty);
     }
 
-
-    [Button]
-    private void FeedAction()
-    {
-        feedState.EnableState();
-    }
-
-    [Button]
-    private void CureAction()
-    {
-
-    }
-
-    [Button]
-    private void BathAction()
-    {
-
-    }
-
-    [Button]
-    private void DanceAction()
-    {
-
-    }
-
     [Button]
     public void SetAnimation(DigimochiAnimations animation)
     {
@@ -122,6 +160,7 @@ public class Digimochi : MonoBehaviour
             animators[i].SetFloat("Blend", (int)animation);
         }
     }
+
     private bool IsDateExpired(DateTime date, int daysTreshold, bool debug = false)
     {
         DateTime todayDateTime = DateTime.Now;
@@ -166,6 +205,9 @@ public class Digimochi : MonoBehaviour
         gameObject.name = $"Digimochi_{digimochiSO.digimochiType}";
         animationSpriteLibrary.spriteLibraryAsset = digimochiSO.spriteLibraryIdleAnimation;
         SetAnimation(DigimochiAnimations.Idle);
+
+        //TODO: Emprolijar esto
+        hapinessBar = FindAnyObjectByType<HapinessBarController>();
     }
 
 }
