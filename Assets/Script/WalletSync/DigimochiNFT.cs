@@ -162,13 +162,16 @@ namespace Hackaton
 
                 PublicKey mintAddress = new(token.Account.Data.Parsed.Info.Mint);
 
-                Nft nft = await Nft.TryGetNftData(mintAddress, Web3.Instance.WalletBase.ActiveRpcClient, loadTexture: false);
-
                 if (!PublicKey.TryFindProgramAddress(
                     new byte[][] { VaultSeed, mintAddress.KeyBytes },
                     ProgramPublicKey,
                     out PublicKey digimochiDataAddress,
                     out byte digimochiDataBumpSeed))
+                    continue;
+
+                Nft nft = await Nft.TryGetNftData(mintAddress, Web3.Instance.WalletBase.ActiveRpcClient, loadTexture: false);
+
+                if (nft is null)
                     continue;
 
                 if (nft.metaplexData?.data?.offchainData is not MetaplexTokenStandard metaplexTokenStandard)
