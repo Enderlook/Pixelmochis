@@ -1,25 +1,17 @@
 using EasyButtons;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
+using DG.Tweening;
 
 public class Digimochi : MonoBehaviour
 {
     [Header("Animation")]
     [SerializeField] private Animator[] animators;
     [SerializeField] private SpriteLibrary animationSpriteLibrary;
-
-    [Header("State Levels")]
-    [SerializeField, Range(0,100)] 
-    private int hungryLevel;
-
-    [SerializeField, Range(0, 100)] 
-    private int sucietyLevel;
-
-    [SerializeField, Range(0, 100)] 
-    private int sickLevel;
 
     [Header("State Thresholds")]
     [SerializeField, Min(1),Tooltip("Time in days to get dirty")] 
@@ -34,10 +26,20 @@ public class Digimochi : MonoBehaviour
     [Header("States")]
     [SerializeField] private List<DigimochiState> states;
 
+    [SerializeField] private ParticleSystem bathParticles;
+    [SerializeField] private ParticleSystem loveParticles;
+    [SerializeField] private GameObject manzana;
+    [SerializeField] private GameObject medicine;
+
+
+
     private DigimochiSO digimochiSO;
     private IDigimochiData digimochiData;
     private HapinessBarController hapinessBar;
     private bool isActive;
+
+    public event Action ActionExecuted;
+    public event Action ActionFinished;
 
     public enum DigimochiAnimations
     {
@@ -70,13 +72,8 @@ public class Digimochi : MonoBehaviour
 
     private void UpdateCurrentState()
     {
-        Debug.Log($"Is Hungry? {IsHungry()}");
         SetState(DigimochiState.StateTypes.Hungry, IsHungry());
-
-        Debug.Log($"Is Sick? {IsSick()}");
         SetState(DigimochiState.StateTypes.Sick, IsSick());
-
-        Debug.Log($"Is Dirty? {IsDirty()}");
         SetState(DigimochiState.StateTypes.Dirty, IsDirty());
 
         UpdateHapinessBar();
@@ -123,7 +120,7 @@ public class Digimochi : MonoBehaviour
     [Button]
     private void SetState(DigimochiState.StateTypes stateType, bool toggle)
     {
-        Debug.Log($"Set state: {stateType} {toggle}");
+        // Debug.Log($"Set state: {stateType} {toggle}");
 
         var stateToEnable = states.Find(x => x.StateType == stateType);
 
@@ -189,6 +186,107 @@ public class Digimochi : MonoBehaviour
 
         return isExpired;
     }
+
+    [Button]
+    public void Bath() 
+    {   
+        StartCoroutine(BathCoroutine());
+    }
+
+    [Button]
+    public void Feed()
+    {
+        StartCoroutine(FeedCoroutine());
+    }
+
+    [Button]
+    public void Cure()
+    {
+        StartCoroutine(CureCoroutine());
+    }
+
+    [Button]
+    public void Dance()
+    {
+        StartCoroutine(DanceCoroutine());
+    }
+
+    private IEnumerator BathCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+
+        // Start bath animation...
+        bathParticles.Play(true);
+        SetAnimation(DigimochiAnimations.Pet);
+
+        yield return new WaitForSeconds(5f);
+
+        // Stop bath animation...
+        bathParticles.Stop(true);
+        SetAnimation(DigimochiAnimations.Idle);
+
+        // Update States
+        digimochiData.Bath();
+        UpdateCurrentState();
+    }
+
+    private IEnumerator FeedCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        manzana.transform.position = new Vector2(0, 0.5f);
+        manzana.SetActive(true);
+
+        manzana.transform.DOMove(transform.position, 2f);
+        yield return new WaitForSeconds(2f);
+        
+        manzana.SetActive(false);
+        SetAnimation(DigimochiAnimations.Feed);
+        yield return new WaitForSeconds(1f);
+
+        SetAnimation(DigimochiAnimations.Pet);
+        loveParticles.Play(true);
+        yield return new WaitForSeconds(2f);
+
+        loveParticles.Stop(false);
+        SetAnimation(DigimochiAnimations.Idle);
+
+        digimochiData.Feed();
+        UpdateCurrentState();
+
+        ActionFinished?.Invoke();
+    }
+
+    private IEnumerator CureCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        medicine.gameObject.SetActive(true);
+
+        SetAnimation(DigimochiAnimations.Cure);
+        yield return new WaitForSeconds(1f);
+
+        SetAnimation(DigimochiAnimations.Idle);
+        medicine.gameObject.SetActive(false);
+
+        digimochiData.Cure();
+        UpdateCurrentState();
+        ActionFinished?.Invoke();
+    }
+
+
+    private IEnumerator DanceCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+
+        SetAnimation(DigimochiAnimations.Dance);
+
+        yield return new WaitForSeconds(2f);
+
+        SetAnimation(DigimochiAnimations.Idle);
+
+
+        UpdateCurrentState();
+    }
+
 
     public void SetDigimochiSO(DigimochiSO type)
     {

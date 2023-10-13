@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour
 
     public event Action <PlayerActions> PlayerDoAction;
 
-
     private void Start()
     {
         bathButton.onClick.AddListener(OnPlayerActionBath);

@@ -1,5 +1,6 @@
 using System;
 
+//TODO: BLOCKCHAIN
 public class DigimochiOnChainData : IDigimochiData
 {
     // Placeholder para datos de la blockchain
@@ -39,5 +40,35 @@ public class DigimochiOnChainData : IDigimochiData
         // El formato de la fecha y hora debería ser "ddMMyyyyHHmmss"
         // Esto es solo un placeholder. Deberías reemplazarlo por la lógica real para obtener el dato desde la blockchain.
         return DateTime.UnixEpoch;
+    }
+
+    public void SetLastBathTime(DateTime date)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Feed(DateTime date)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Cure(DateTime date)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Bath()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Feed()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Cure()
+    {
+        throw new NotImplementedException();
     }
 }

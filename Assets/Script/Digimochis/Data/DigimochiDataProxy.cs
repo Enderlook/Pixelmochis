@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Globalization;
+using EasyButtons;
 
 // Clase que simula ser la data de la blockchain, pero sus metodos enves de obtener la data
 // desde la blockchain, directamente la toma del valor seteado en el scriptableObject
@@ -9,9 +10,9 @@ public class DigimochiDataProxy : ScriptableObject, IDigimochiData
 {
     [SerializeField] private string digimochiName;
     [SerializeField] private string digimochiType;
-    [SerializeField] private string lastBathTimeString; // Stored as "ddMMyyyyHHmmss"
-    [SerializeField] private string lastMealTimeString; // Stored as "ddMMyyyyHHmmss"
-    [SerializeField] private string lastMedicineTimeString; // Stored as "ddMMyyyyHHmmss"
+    [SerializeField,Tooltip("Format: " + dateFormat)] private string lastBathTimeString; // Stored as "ddMMyyyyHHmmss"
+    [SerializeField,Tooltip("Format: " + dateFormat)] private string lastMealTimeString; // Stored as "ddMMyyyyHHmmss"
+    [SerializeField,Tooltip("Format: " + dateFormat)] private string lastMedicineTimeString; // Stored as "ddMMyyyyHHmmss"
 
     private readonly CultureInfo provider = CultureInfo.InvariantCulture;
     private const string dateFormat = "ddMMyyyyHHmmss";
@@ -34,5 +35,25 @@ public class DigimochiDataProxy : ScriptableObject, IDigimochiData
     {
         return DateTime.ParseExact(lastMedicineTimeString, dateFormat, provider);
     }
+
+    [Button]
+    public void Bath()
+    {
+        lastBathTimeString = DateTime.Today.ToString(dateFormat, provider);
+    }
+
+    [Button]
+    public void Feed()
+    {
+        lastMealTimeString = DateTime.Today.ToString(dateFormat, provider);
+    }
+
+    [Button]
+    public void Cure()
+    {
+        lastMedicineTimeString = DateTime.Today.ToString(dateFormat, provider);
+    }
+
+   
 
 }

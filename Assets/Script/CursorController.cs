@@ -8,7 +8,7 @@ using UnityEngine;
 public class CursorController : MonoBehaviour
 {
     [SerializeField] private List<CursorPreset> cursorPresets;
-    [SerializeField] private float cursorScale = 1.0f; 
+    [SerializeField, Min(1)] private float scaleFactor;
 
     private CursorPreset currentSet;
 
@@ -41,16 +41,22 @@ public class CursorController : MonoBehaviour
              currentSet = preset;
     }
 
+    private int referenceWidth = 320; // Ancho de la resolución de referencia
+    private int referenceHeight = 180; // Alto de la resolución de referencia
+
     private void ChangeCursor(Sprite sprite)
     {
         Texture2D texture = SpriteToTexture(sprite);
         Vector2 hotspot = new Vector2(texture.width / 2f, texture.height / 2f);
 
-        // Aplicar la escala al cursor
-        texture = ScaleTexture(texture, cursorScale);
+        // Escala el cursor en función de la relación entre la resolución actual y la de referencia
+        float scaleX = (float)Screen.width / referenceWidth;
+        float scaleY = (float)Screen.height / referenceHeight;
+        texture = ScaleTexture(texture, Mathf.Min(scaleX * scaleFactor, scaleY * scaleFactor));
 
         Cursor.SetCursor(texture, hotspot, CursorMode.ForceSoftware);
     }
+
 
     private Texture2D SpriteToTexture(Sprite sprite)
     {

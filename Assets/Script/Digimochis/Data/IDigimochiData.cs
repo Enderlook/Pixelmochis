@@ -7,4 +7,7 @@ public interface IDigimochiData
     DateTime GetLastBathTime();
     DateTime GetLastMealTime();
     DateTime GetLastMedicineTime();
+    void Bath();
+    void Feed();
+    void Cure();
 }
