@@ -61,12 +61,14 @@ namespace Hackaton
             try
             {
                 await Web3.Instance.CreateAccount(mnemonic, password);
-                Debug.Log("Created Account");
             }
             catch (Exception exception)
             {
                 passwordField.value = exception.ToString();
+                return;
             }
+
+            PanelsManager.OnLogged();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 public interface IDigimochiData
 {
@@ -7,7 +8,7 @@ public interface IDigimochiData
     DateTime GetLastBathTime();
     DateTime GetLastMealTime();
     DateTime GetLastMedicineTime();
-    void Bath();
-    void Feed();
-    void Cure();
+    Task<bool> Bath();
+    Task<bool> Feed();
+    Task<bool> Cure();
 }

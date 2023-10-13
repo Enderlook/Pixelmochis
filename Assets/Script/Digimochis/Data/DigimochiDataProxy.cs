@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Globalization;
 using EasyButtons;
+using System.Threading.Tasks;
 
 // Clase que simula ser la data de la blockchain, pero sus metodos enves de obtener la data
 // desde la blockchain, directamente la toma del valor seteado en el scriptableObject
@@ -37,21 +38,24 @@ public class DigimochiDataProxy : ScriptableObject, IDigimochiData
     }
 
     [Button]
-    public void Bath()
+    public Task<bool> Bath()
     {
         lastBathTimeString = DateTime.Today.ToString(dateFormat, provider);
+        return Task.FromResult(true);
     }
 
     [Button]
-    public void Feed()
+    public Task<bool> Feed()
     {
         lastMealTimeString = DateTime.Today.ToString(dateFormat, provider);
+        return Task.FromResult(true);
     }
 
     [Button]
-    public void Cure()
+    public Task<bool> Cure()
     {
         lastMedicineTimeString = DateTime.Today.ToString(dateFormat, provider);
+        return Task.FromResult(true);
     }
 
    

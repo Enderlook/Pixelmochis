@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace Hackaton
@@ -72,6 +73,11 @@ namespace Hackaton
                 panels.Pop().Close();
                 panels.Peek().Uncover();
             }
+        }
+
+        public static void OnLogged()
+        {
+            SceneManager.LoadSceneAsync("Game");
         }
     }
 }

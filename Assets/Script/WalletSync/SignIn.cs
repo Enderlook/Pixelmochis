@@ -106,6 +106,7 @@ namespace Hackaton
             if (account != null)
             {
                 incorrectPasswordLabel.visible = false;
+                PanelsManager.OnLogged();
             }
             else
             {
@@ -119,6 +120,7 @@ namespace Hackaton
             RpcCluster.MainNet => "https://rpc.magicblock.app/mainnet/",
             RpcCluster.DevNet => "https://rpc.magicblock.app/testnet/",
             RpcCluster.TestNet => "https://rpc.magicblock.app/devnet/",
+            _ => "http://localhost:8899",
         };
 
         private static string GetWebSocketsRPC(RpcCluster cluster) => cluster switch
@@ -126,6 +128,7 @@ namespace Hackaton
             RpcCluster.MainNet => "wss://rpc.magicblock.app/mainnet/",
             RpcCluster.DevNet => "wss://rpc.magicblock.app/testnet/",
             RpcCluster.TestNet => "wss://rpc.magicblock.app/devnet/",
+            _ => "ws://localhost:8900",
         };
     }
 }

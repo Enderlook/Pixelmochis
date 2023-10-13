@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using EasyButtons;
-
+using Hackaton;
+using System.Threading.Tasks;
 
 public class DigimochiManager : MonoBehaviour
 {
-    [SerializeField]// TODO: Hacer que esto sea IDigimochiData
-    private List<DigimochiDataProxy> userDigimochis = new List<DigimochiDataProxy>();
+    private List<IDigimochiData> userDigimochis = new List<IDigimochiData>();
 
     [SerializeField]
     private DigimochiGlossary digimochiGlossary;
@@ -42,8 +42,37 @@ public class DigimochiManager : MonoBehaviour
         // Aquí llamas a la API o la clase que te permite obtener los Digimochis del usuario desde la blockchain.
         // userDigimochis = Obtener data de la blockchain y parsearla a la clase de blockchain que implemente IDigimochiData
 
+        List<IDigimochiData> digimochis = new();
+
+        IAsyncEnumerator<DigimochiNFT> digimochisProducer = DigimochiNFT.GetAllDigimochis().GetAsyncEnumerator();
+
+        while (true)
+        {
+            ValueTask<bool> task = digimochisProducer.MoveNextAsync();
+            while (!task.IsCompleted)
+            {
+                yield return null;
+            }
+            if (task.IsFaulted)
+                throw task.AsTask().Exception;
+            if (task.Result)
+                digimochis.Add(digimochisProducer.Current);
+            else
+                break;
+        }
+
+        ValueTask disposeTask = digimochisProducer.DisposeAsync();
+        while (!disposeTask.IsCompleted)
+        {
+            yield return null;
+        }
+        if (disposeTask.IsFaulted)
+            throw disposeTask.AsTask().Exception;
+
+        userDigimochis = digimochis;
+        
         // Removemos cualquier digimochi que pueda ser nulo.
-        userDigimochis.RemoveAll(x => x == null);
+        //userDigimochis.RemoveAll(x => x == null);
 
         //Si hay digimochis los instanciamos
         if (userDigimochis.Count > 0 && userDigimochis != null)
