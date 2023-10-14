@@ -26,6 +26,7 @@ namespace Hackaton
     {
         private static readonly byte[] VaultSeed = Encoding.UTF8.GetBytes("vault");
         private static readonly byte[] MetadataSeed = Encoding.UTF8.GetBytes("metadata");
+        private static readonly PublicKey TokenMetadataProgramPublicKey = new("metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s");
         private static readonly PublicKey ProgramPublicKey = new("8GdnC5JNZkJgAvfPV7qMvRxjv2EACpqePSaqz89XiJPh");
         private static readonly PublicKey CreatorPublicKey = new("9KBfNf8UYwnRjq1fFRUb1Mn6iqGd239X3PG2Vvwmg7Zq");
 
@@ -71,9 +72,9 @@ namespace Hackaton
             RequestResult<ResponseValue<AccountInfo>> petDataAccount = await Web3.Wallet.ActiveRpcClient.GetAccountInfoAsync(digimochiDataAddress);
             if (petDataAccount.WasSuccessful && petDataAccount.Result.Value?.Data is List<string> data && data.Count == 2)
             {
-                Debug.Assert(data[1] != "base64");
+                Debug.Assert(data[1] == "base64");
                 byte[] payload = Convert.FromBase64String(data[0]);
-                if (payload.Length == 24)
+                if ((payload?.Length ?? 0) > 0)
                 {
                     long secondsSinceEpoch = BinaryPrimitives.ReadInt64LittleEndian(payload.AsSpan(1, 8));
                     if (secondsSinceEpoch != 0)
@@ -110,10 +111,8 @@ namespace Hackaton
 
         again:
             RequestResult<ResponseValue<LatestBlockHash>> recentBlockHashRequest = await Web3.Wallet.ActiveRpcClient.GetLatestBlockHashAsync();
-            if (recentBlockHashRequest.WasSuccessful)
+            if (!recentBlockHashRequest.WasSuccessful)
             {
-                transaction.RecentBlockHash = recentBlockHashRequest.Result.Value.Blockhash;
-
                 // Errors which could be product of timeouts or things which require retry mechanism.
                 if (recentBlockHashRequest.ServerErrorCode is -32002 or -32004 or -32005 or -32014)
                 {
@@ -123,6 +122,10 @@ namespace Hackaton
                 {
                     return false;
                 }
+            }
+            else
+            {
+                transaction.RecentBlockHash = recentBlockHashRequest.Result.Value.Blockhash;
             }
 
             Transaction signedTransaction = await Web3.Wallet.SignTransaction(transaction);
@@ -160,7 +163,7 @@ namespace Hackaton
                 PublicKey mintAddress = new(info.Mint);
 
                 if (!PublicKey.TryFindProgramAddress(
-                    new byte[][] { VaultSeed, mintAddress.KeyBytes },
+                    new byte[][] { VaultSeed, ProgramPublicKey.KeyBytes, mintAddress.KeyBytes },
                     ProgramPublicKey,
                     out PublicKey digimochiDataAddress,
                     out byte digimochiDataBumpSeed))
@@ -206,7 +209,7 @@ namespace Hackaton
 
                 if (!PublicKey.TryFindProgramAddress(
                     new byte[][] { MetadataSeed, MetadataProgram.ProgramIdKey, mintAddress.KeyBytes },
-                    ProgramPublicKey,
+                    TokenMetadataProgramPublicKey,
                     out PublicKey metadataAddress,
                     out byte metadataBumpSeed))
                     continue;
