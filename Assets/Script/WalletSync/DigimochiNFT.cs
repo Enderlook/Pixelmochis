@@ -153,10 +153,11 @@ namespace Hackaton
             TokenAccount[] tokens = await Web3.Wallet.GetTokenAccounts(Commitment.Confirmed);
             foreach (TokenAccount token in tokens)
             {
-                if (token.Account.Data.Parsed.Info.TokenAmount.AmountDecimal != 1)
+                TokenAccountInfoDetails info = token.Account.Data.Parsed.Info;
+                if (info.TokenAmount.AmountDecimal != 1)
                     continue;
 
-                PublicKey mintAddress = new(token.Account.Data.Parsed.Info.Mint);
+                PublicKey mintAddress = new(info.Mint);
 
                 if (!PublicKey.TryFindProgramAddress(
                     new byte[][] { VaultSeed, mintAddress.KeyBytes },

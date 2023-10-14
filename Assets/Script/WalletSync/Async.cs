@@ -9,14 +9,14 @@ namespace Hackaton
     {
         private static Async Instance;
 
-        public static void Handle(Task task)
+        public static Coroutine Handle(Task task)
         {
             Async instance = Instance;
             if (instance == null)
             {
                 Instance = instance = new GameObject("Async").AddComponent<Async>();
             }
-            instance.StartCoroutine(Work());
+            return instance.StartCoroutine(Work());
 
             IEnumerator Work()
             {
@@ -24,11 +24,7 @@ namespace Hackaton
                 {
                     yield return null;
                 }
-
-                if (task.IsFaulted)
-                {
-                    Debug.LogException(task.Exception);
-                }
+                task.GetAwaiter().GetResult();
             }
         }
     }

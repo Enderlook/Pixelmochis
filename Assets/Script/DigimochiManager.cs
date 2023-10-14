@@ -1,17 +1,18 @@
+using Hackaton;
+
+using Solana.Unity.SDK;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using EasyButtons;
-using Hackaton;
-using System.Threading.Tasks;
 using System.Linq;
-using System.Runtime.ExceptionServices;
+using System.Threading.Tasks;
+
+using UnityEngine;
 
 public class DigimochiManager : MonoBehaviour
 {
     private List<IDigimochiData> userDigimochis = new List<IDigimochiData>();
-
 
     [SerializeField]
     private bool useDigimochiDataProxy;
@@ -30,7 +31,7 @@ public class DigimochiManager : MonoBehaviour
 
     public event Action<List<Digimochi>> DigimochisLoaded;
 
-    private  List<Digimochi> digimochisIntantied = new List<Digimochi>();
+    private List<Digimochi> digimochisIntantied = new List<Digimochi>();
 
     void Start()
     {
@@ -40,16 +41,43 @@ public class DigimochiManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(SyncUserDigimochis());
+            if (Web3.Instance != null)
+            {
+                OnWalletInstanced();
+            }
+            else
+            {
+                Web3.OnWalletInstance += OnWalletInstanced;
+            }
         }
     }
 
-    public IEnumerator SyncUserDigimochis()
+    private void OnWalletInstanced()
+    {
+        if (Web3.Account != null)
+        {
+            StartCoroutine(SyncUserDigimochisFromNet());
+        }
+        else
+        {
+            Async.Handle(LoginWithWaletAdapter());
+        }
+    }
+
+    private async Task LoginWithWaletAdapter()
+    {
+        if (await Web3.Instance.LoginWalletAdapter() != null)
+        {
+            StartCoroutine(SyncUserDigimochisFromNet());
+        }
+    }
+
+    public IEnumerator SyncUserDigimochisFromNet()
     {
         loadingDigimochisSign.SetActive(true);
         yield return new WaitForSeconds(0.5f);
 
-        yield return GetDigimochisFromNet();
+        yield return Async.Handle(GetDigimochisFromNet());
 
         // Removemos cualquier digimochi que pueda ser nulo.
         //userDigimochis.RemoveAll(x => x == null);
@@ -74,7 +102,7 @@ public class DigimochiManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         userDigimochis = userDigimochisProxy.Select(x => x as IDigimochiData).ToList();
-        
+
         // Removemos cualquier digimochi que pueda ser nulo.
         //userDigimochis.RemoveAll(x => x == null);
 
@@ -95,7 +123,7 @@ public class DigimochiManager : MonoBehaviour
     private void InstantieDigimochis()
     {
         //Si ya hay digimochis instanciados, los removemos.
-        if(digimochisIntantied.Count > 0)
+        if (digimochisIntantied.Count > 0)
         {
             foreach (var digimochi in digimochisIntantied)
             {
@@ -103,7 +131,7 @@ public class DigimochiManager : MonoBehaviour
             }
             digimochisIntantied = new List<Digimochi>();
         }
-        
+
         for (int i = 0; i < userDigimochis.Count; i++)
         {
             var userDigimochiData = userDigimochis[i];
@@ -114,70 +142,20 @@ public class DigimochiManager : MonoBehaviour
 
             var digimochi = Instantiate(digimochiPrefab);
             digimochisIntantied.Add(digimochi);
-            
+
             digimochi.SetDigimochiSO(digimochiSOFromGlossary);
             digimochi.SetDigimochiData(userDigimochiData);
             digimochi.Initialize();
         }
     }
 
-    private IEnumerator GetDigimochisFromNet()
+    private async Task GetDigimochisFromNet()
     {
         List<IDigimochiData> digimochis = new();
 
-        IAsyncEnumerator<DigimochiNFT> digimochisProducer = DigimochiNFT.GetAllDigimochis().GetAsyncEnumerator();
-
-        while (true)
+        await foreach (DigimochiNFT digimochi in DigimochiNFT.GetAllDigimochis())
         {
-            ValueTask<bool> task = digimochisProducer.MoveNextAsync();
-            while (!task.IsCompleted)
-            {
-                yield return null;
-            }
-
-            ExceptionDispatchInfo exception = null;
-            try
-            {
-                if (task.GetAwaiter().GetResult())
-                {
-                    digimochis.Add(digimochisProducer.Current);
-                }
-                else
-                {
-                    goto dispose;
-                }
-            }
-            catch (Exception e)
-            {
-                exception = ExceptionDispatchInfo.Capture(e);
-            }
-
-            if (exception is not null)
-            {
-                ValueTask disposeTask = digimochisProducer.DisposeAsync();
-                while (!disposeTask.IsCompleted)
-                {
-                    yield return null;
-                }
-                try
-                {
-                    disposeTask.GetAwaiter().GetResult();
-                }
-                catch (Exception e)
-                {
-                    throw new AggregateException(e, exception.SourceException);
-                }
-                exception.Throw();
-            }
-        }
-    dispose:
-        {
-            ValueTask disposeTask = digimochisProducer.DisposeAsync();
-            while (!disposeTask.IsCompleted)
-            {
-                yield return null;
-            }
-            disposeTask.GetAwaiter().GetResult();
+            digimochis.Add(digimochi);
         }
 
         userDigimochis = digimochis;
