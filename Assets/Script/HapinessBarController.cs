@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class HapinessBarController : MonoBehaviour
 {
@@ -32,7 +33,8 @@ public class HapinessBarController : MonoBehaviour
         var sta = hapinessStates.Find(x => x.state == state);
         currentHapinessState = sta;
 
-        fillImage.fillAmount = currentHapinessState.fillValue;
+        //DO This but with DOTween
+        DOTween.To(() => fillImage.fillAmount, x => fillImage.fillAmount = x, currentHapinessState.fillValue, 0.5f);
     }
 }
 
