@@ -35,9 +35,18 @@ public class PlayerAction : MonoBehaviour
 
     public event Action<PlayerAction> ActionPerformed;
 
+    private Func<bool> ActionCondition = () => true;
 
     public void PerfomAction()
     {
+        if (ActionCondition() == false)
+            return;
+
         ActionPerformed?.Invoke(this);
+    }
+
+    public void SetCondition(Func<bool> condition)// Conditions are WIP
+    {
+        ActionCondition = condition;
     }
 }

@@ -27,6 +27,11 @@ public class PlayerActionWindow : MonoBehaviour
 
     public void ReceiveAction(PlayerAction action)
     {
+        if (digimochiSelector.CurrentDigimochi.IsPerfomingAction)
+        {
+            return;
+        }
+
         currentAction = action;
 
         if (action.Type == PlayerAction.ActionType.Blockchain)
@@ -45,26 +50,31 @@ public class PlayerActionWindow : MonoBehaviour
     //TODO: Emprolijar esto, hacerlo generico
     public void DoAction()
     {
-        switch(currentAction.Action)
+        var digimochi = digimochiSelector.CurrentDigimochi;
+
+        switch (currentAction.Action)
         {
             case PlayerAction.PlayerActions.Bath:
-                digimochiSelector.CurrentDigimochi.Bath(OnActionRealized);
+                //currentAction.SetCondition(digimochi.IsDirty);
+                digimochi.Bath(OnActionRealized);
                 break;
 
             case PlayerAction.PlayerActions.Feed:
-                digimochiSelector.CurrentDigimochi.Feed(OnActionRealized);
+                //currentAction.SetCondition(digimochi.IsHungry);
+                digimochi.Feed(OnActionRealized);
                 break;
 
             case PlayerAction.PlayerActions.Cure:
-                digimochiSelector.CurrentDigimochi.Cure(OnActionRealized);
+                //currentAction.SetCondition(digimochi.IsSick);
+                digimochi.Cure(OnActionRealized);
                 break;
 
             case PlayerAction.PlayerActions.Dance:
-                digimochiSelector.CurrentDigimochi.Dance();
+                digimochi.Dance();
                 break;
 
             case PlayerAction.PlayerActions.Pet:
-                digimochiSelector.CurrentDigimochi.Pet();
+                digimochi.Pet();
                 break;
         }
     }

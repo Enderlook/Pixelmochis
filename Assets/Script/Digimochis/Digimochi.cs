@@ -52,6 +52,7 @@ public class Digimochi : MonoBehaviour
 
     public IDigimochiData DigimochiData => digimochiData;
     public DigimochiSO DigimochiSO => digimochiSO;
+    public bool IsPerfomingAction => isDigimochiPerfomingAction;
 
     private void Start()
     {
@@ -147,17 +148,17 @@ public class Digimochi : MonoBehaviour
         }
     }
 
-    private bool IsHungry()
+    public bool IsHungry()
     {
         return IsDateExpired(digimochiData.GetLastMealTime(), daysToGetHungry);
     }
 
-    private bool IsSick()
+    public bool IsSick()
     {
         return IsDateExpired(digimochiData.GetLastMedicineTime(), daysToGetSick);
     }
 
-    private bool IsDirty()
+    public bool IsDirty()
     {
         return IsDateExpired(digimochiData.GetLastBathTime(), daysToGetDirty);
     }
@@ -251,6 +252,8 @@ public class Digimochi : MonoBehaviour
     {
         ActionPerformed?.Invoke();
 
+        yield return new WaitForSeconds(1f);
+
         Task<bool> operation = digimochiData.Bath();
         while (!operation.IsCompleted)
             yield return null;
@@ -283,6 +286,8 @@ public class Digimochi : MonoBehaviour
     private IEnumerator FeedCoroutine(Action<bool> response)
     {
         ActionPerformed?.Invoke();
+
+        yield return new WaitForSeconds(1f);
 
         Task<bool> operation = digimochiData.Feed();
         while (!operation.IsCompleted)
@@ -322,6 +327,8 @@ public class Digimochi : MonoBehaviour
     private IEnumerator CureCoroutine(Action<bool> response)
     {
         ActionPerformed?.Invoke();
+
+        yield return new WaitForSeconds(1f);
 
         Task<bool> operation = digimochiData.Cure();
         while (!operation.IsCompleted)
