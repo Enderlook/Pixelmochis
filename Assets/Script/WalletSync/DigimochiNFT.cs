@@ -131,8 +131,6 @@ namespace Hackaton
             Transaction signedTransaction = await Web3.Wallet.SignTransaction(transaction);
             RequestResult<string> transactionRequest = await Web3.Wallet.ActiveRpcClient.SendAndConfirmTransactionAsync(signedTransaction.Serialize());
 
-            //RequestResult<string> transactionRequest = await Web3.Wallet.SignAndSendTransaction(transaction);
-
             if (!transactionRequest.WasSuccessful)
             {
                 // Errors which could be product of timeouts or things which require retry mechanism.
@@ -143,8 +141,6 @@ namespace Hackaton
 
                 return false;
             }
-
-            //await Web3.Wallet.ActiveRpcClient.ConfirmTransaction(transactionRequest.Result);
 
             await UpdateDataAccount();
 
