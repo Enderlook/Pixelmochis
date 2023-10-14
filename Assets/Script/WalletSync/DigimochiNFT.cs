@@ -80,7 +80,7 @@ namespace Hackaton
                     if (secondsSinceEpoch != 0)
                         lastMeal = DateTime.UnixEpoch.AddSeconds(secondsSinceEpoch);
 
-                    secondsSinceEpoch = BinaryPrimitives.ReadInt64LittleEndian(payload.AsSpan(8, 8));
+                    secondsSinceEpoch = BinaryPrimitives.ReadInt64LittleEndian(payload.AsSpan(9, 8));
                     if (secondsSinceEpoch != 0)
                         lastMedicine = DateTime.UnixEpoch.AddSeconds(secondsSinceEpoch);
 

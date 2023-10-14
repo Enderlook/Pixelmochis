@@ -225,8 +225,8 @@ pub fn process_instruction(
 
     match match instruction_data[2] {
         FEED => pet_data.get_mut(1..9),
-        CURE => pet_data.get_mut(10..18),
-        BATH => pet_data.get_mut(19..27),
+        CURE => pet_data.get_mut(9..17),
+        BATH => pet_data.get_mut(17..25),
         // Safety, we checked this above at the beginning of the program.
         _ => unsafe { core::hint::unreachable_unchecked() },
     } {
