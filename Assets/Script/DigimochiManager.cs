@@ -49,68 +49,8 @@ public class DigimochiManager : MonoBehaviour
         loadingDigimochisSign.SetActive(true);
         yield return new WaitForSeconds(0.5f);
 
-        // Aquí llamas a la API o la clase que te permite obtener los Digimochis del usuario desde la blockchain.
-        // userDigimochis = Obtener data de la blockchain y parsearla a la clase de blockchain que implemente IDigimochiData
+        yield return GetDigimochisFromNet();
 
-        List<IDigimochiData> digimochis = new();
-
-        IAsyncEnumerator<DigimochiNFT> digimochisProducer = DigimochiNFT.GetAllDigimochis().GetAsyncEnumerator();
-
-        while (true)
-        {
-            ValueTask<bool> task = digimochisProducer.MoveNextAsync();
-            while (!task.IsCompleted)
-            {
-                yield return null;
-            }
-
-            ExceptionDispatchInfo exception = null;
-            try
-            {
-                if (task.GetAwaiter().GetResult())
-                {
-                    digimochis.Add(digimochisProducer.Current);
-                }
-                else
-                {
-                    goto dispose;
-                }
-            }
-            catch (Exception e)
-            {
-                exception = ExceptionDispatchInfo.Capture(e);
-            }
-
-            if (exception is not null)
-            {
-                ValueTask disposeTask = digimochisProducer.DisposeAsync();
-                while (!disposeTask.IsCompleted)
-                {
-                    yield return null;
-                }
-                try
-                {
-                    disposeTask.GetAwaiter().GetResult();
-                }
-                catch (Exception e)
-                {
-                    throw new AggregateException(e, exception.SourceException);
-                }
-                exception.Throw();
-            }
-        }
-    dispose:
-        {
-            ValueTask disposeTask = digimochisProducer.DisposeAsync();
-            while (!disposeTask.IsCompleted)
-            {
-                yield return null;
-            }
-            disposeTask.GetAwaiter().GetResult();
-        }
-
-        userDigimochis = digimochis;
-        
         // Removemos cualquier digimochi que pueda ser nulo.
         //userDigimochis.RemoveAll(x => x == null);
 
@@ -179,5 +119,67 @@ public class DigimochiManager : MonoBehaviour
             digimochi.SetDigimochiData(userDigimochiData);
             digimochi.Initialize();
         }
+    }
+
+    private IEnumerator GetDigimochisFromNet()
+    {
+        List<IDigimochiData> digimochis = new();
+
+        IAsyncEnumerator<DigimochiNFT> digimochisProducer = DigimochiNFT.GetAllDigimochis().GetAsyncEnumerator();
+
+        while (true)
+        {
+            ValueTask<bool> task = digimochisProducer.MoveNextAsync();
+            while (!task.IsCompleted)
+            {
+                yield return null;
+            }
+
+            ExceptionDispatchInfo exception = null;
+            try
+            {
+                if (task.GetAwaiter().GetResult())
+                {
+                    digimochis.Add(digimochisProducer.Current);
+                }
+                else
+                {
+                    goto dispose;
+                }
+            }
+            catch (Exception e)
+            {
+                exception = ExceptionDispatchInfo.Capture(e);
+            }
+
+            if (exception is not null)
+            {
+                ValueTask disposeTask = digimochisProducer.DisposeAsync();
+                while (!disposeTask.IsCompleted)
+                {
+                    yield return null;
+                }
+                try
+                {
+                    disposeTask.GetAwaiter().GetResult();
+                }
+                catch (Exception e)
+                {
+                    throw new AggregateException(e, exception.SourceException);
+                }
+                exception.Throw();
+            }
+        }
+    dispose:
+        {
+            ValueTask disposeTask = digimochisProducer.DisposeAsync();
+            while (!disposeTask.IsCompleted)
+            {
+                yield return null;
+            }
+            disposeTask.GetAwaiter().GetResult();
+        }
+
+        userDigimochis = digimochis;
     }
 }
