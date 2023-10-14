@@ -5,10 +5,18 @@ using UnityEngine;
 using EasyButtons;
 using Hackaton;
 using System.Threading.Tasks;
+using System.Linq;
 
 public class DigimochiManager : MonoBehaviour
 {
     private List<IDigimochiData> userDigimochis = new List<IDigimochiData>();
+
+
+    [SerializeField]
+    private bool useDigimochiDataProxy;
+
+    [SerializeField]
+    private List<DigimochiDataProxy> userDigimochisProxy = new List<DigimochiDataProxy>();
 
     [SerializeField]
     private DigimochiGlossary digimochiGlossary;
@@ -25,13 +33,14 @@ public class DigimochiManager : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(SyncUserDigimochis());
-    }
-
-    [Button]
-    private void SyncDigimochisDEBUG()
-    {
-        StartCoroutine(SyncUserDigimochis());
+        if (useDigimochiDataProxy)
+        {
+            StartCoroutine(SyncUserDigimochisLocally());
+        }
+        else
+        {
+            StartCoroutine(SyncUserDigimochis());
+        }
     }
 
     public IEnumerator SyncUserDigimochis()
@@ -88,7 +97,30 @@ public class DigimochiManager : MonoBehaviour
         loadingDigimochisSign.SetActive(false);
     }
 
-    // El metodo que se llama luego de sincronizar los digimochis
+    public IEnumerator SyncUserDigimochisLocally()
+    {
+        loadingDigimochisSign.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+
+        userDigimochis = userDigimochisProxy.Select(x => x as IDigimochiData).ToList();
+        
+        // Removemos cualquier digimochi que pueda ser nulo.
+        //userDigimochis.RemoveAll(x => x == null);
+
+        //Si hay digimochis los instanciamos
+        if (userDigimochis.Count > 0 && userDigimochis != null)
+        {
+            InstantieDigimochis();
+            DigimochisLoaded?.Invoke(digimochisIntantied);
+        }
+        else
+        {
+            DigimochisLoaded?.Invoke(null);
+            Debug.Log("Could not load any digimochis");
+        }
+        loadingDigimochisSign.SetActive(false);
+    }
+
     private void InstantieDigimochis()
     {
         //Si ya hay digimochis instanciados, los removemos.

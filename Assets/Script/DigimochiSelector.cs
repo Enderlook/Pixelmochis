@@ -16,6 +16,7 @@ public class DigimochiSelector : MonoBehaviour
     private int digimochiIndex;
 
     public event Action<Digimochi> DigimochiSelected;
+    public Digimochi CurrentDigimochi => digimochis[digimochiIndex];
 
     private void Awake()
     {
@@ -47,6 +48,8 @@ public class DigimochiSelector : MonoBehaviour
         for (int i = 0; i < digimochis.Count; i++)
         {
             digimochis[i].transform.SetParent(transform.transform, false);
+            digimochis[i].ActionPerformed += OnDigimochiPerformAction;
+            digimochis[i].ActionFinished += OnDigimochiFinishAction;
         }
 
         UpdateCurrentDigimochi();
@@ -103,6 +106,16 @@ public class DigimochiSelector : MonoBehaviour
         }
 
         DigimochiSelected?.Invoke(digimochis[digimochiIndex]);
+    }
+
+    private void OnDigimochiPerformAction()
+    {
+        SetButtonsInteractable(false);
+    }
+
+    private void OnDigimochiFinishAction()
+    {
+        SetButtonsInteractable(true);
     }
 
     private void SetButtonsInteractable(bool interactable)

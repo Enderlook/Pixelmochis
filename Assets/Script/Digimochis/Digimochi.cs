@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 using DG.Tweening;
+using System.Threading.Tasks;
 
 public class Digimochi : MonoBehaviour
 {
@@ -31,14 +32,13 @@ public class Digimochi : MonoBehaviour
     [SerializeField] private GameObject manzana;
     [SerializeField] private GameObject medicine;
 
-
-
     private DigimochiSO digimochiSO;
     private IDigimochiData digimochiData;
     private HapinessBarController hapinessBar;
     private bool isActive;
+    private bool isDigimochiPerfomingAction;
 
-    public event Action ActionExecuted;
+    public event Action ActionPerformed;
     public event Action ActionFinished;
 
     public enum DigimochiAnimations
@@ -57,6 +57,19 @@ public class Digimochi : MonoBehaviour
     {
         Initialize();
         UpdateCurrentState();
+
+        ActionPerformed += OnDigimichiPerfomAction;
+        ActionFinished += OnDigimichiFinishAction;
+    }
+
+    private void OnDigimichiPerfomAction()
+    {
+        isDigimochiPerfomingAction = true;
+    }
+
+    private void OnDigimichiFinishAction()
+    {
+        isDigimochiPerfomingAction = false;
     }
 
     public void ActiveDigimochi()
@@ -187,34 +200,71 @@ public class Digimochi : MonoBehaviour
         return isExpired;
     }
 
+    //TODO: Emprolijar metodos de acciones, hacerlo generico para evitar repeticion de codigo
+
     [Button]
-    public void Bath() 
-    {   
-        StartCoroutine(BathCoroutine());
+    public void Bath(Action<bool> response) 
+    {
+        if (isDigimochiPerfomingAction)
+            return;
+
+        StartCoroutine(BathCoroutine(response));
     }
 
     [Button]
-    public void Feed()
+    public void Feed(Action<bool> response)
     {
-        StartCoroutine(FeedCoroutine());
+        if (isDigimochiPerfomingAction)
+            return;
+
+        StartCoroutine(FeedCoroutine(response));
     }
 
     [Button]
-    public void Cure()
+    public void Cure(Action<bool> response)
     {
-        StartCoroutine(CureCoroutine());
+        if (isDigimochiPerfomingAction)
+            return;
+
+        StartCoroutine(CureCoroutine(response));
     }
 
     [Button]
     public void Dance()
     {
+        if (isDigimochiPerfomingAction)
+            return;
+
         StartCoroutine(DanceCoroutine());
     }
 
-    private IEnumerator BathCoroutine()
+    [Button]
+    public void Pet()
     {
-        yield return new WaitForEndOfFrame();
+        if (isDigimochiPerfomingAction)
+            return;
 
+        StartCoroutine(PetCoroutine());
+    }
+
+    private IEnumerator BathCoroutine(Action<bool> response)
+    {
+        ActionPerformed?.Invoke();
+
+        Task<bool> operation = digimochiData.Bath();
+        while (!operation.IsCompleted)
+            yield return null;
+       
+        bool wasRunSuccessfully = operation.GetAwaiter().GetResult();
+
+        response?.Invoke(wasRunSuccessfully);
+        if (!wasRunSuccessfully)
+        {
+            Debug.Log("Action failed");
+            yield break;
+        }
+
+        yield return new WaitForEndOfFrame();
         // Start bath animation...
         bathParticles.Play(true);
         SetAnimation(DigimochiAnimations.Pet);
@@ -226,13 +276,27 @@ public class Digimochi : MonoBehaviour
         SetAnimation(DigimochiAnimations.Idle);
 
         // Update States
-        digimochiData.Bath();
         UpdateCurrentState();
+        ActionFinished?.Invoke();
     }
 
-    private IEnumerator FeedCoroutine()
+    private IEnumerator FeedCoroutine(Action<bool> response)
     {
-        yield return new WaitForEndOfFrame();
+        ActionPerformed?.Invoke();
+
+        Task<bool> operation = digimochiData.Feed();
+        while (!operation.IsCompleted)
+            yield return null;
+
+        bool wasRunSuccessfully = operation.GetAwaiter().GetResult();
+
+        response?.Invoke(wasRunSuccessfully);
+        if (!wasRunSuccessfully)
+        {
+            Debug.Log("Action failed");
+            yield break;
+        }
+
         manzana.transform.position = new Vector2(0, 0.5f);
         manzana.SetActive(true);
 
@@ -252,13 +316,27 @@ public class Digimochi : MonoBehaviour
 
         digimochiData.Feed();
         UpdateCurrentState();
-
         ActionFinished?.Invoke();
     }
 
-    private IEnumerator CureCoroutine()
+    private IEnumerator CureCoroutine(Action<bool> response)
     {
-        yield return new WaitForEndOfFrame();
+        ActionPerformed?.Invoke();
+
+        Task<bool> operation = digimochiData.Cure();
+        while (!operation.IsCompleted)
+            yield return null;
+
+        bool wasRunSuccessfully = operation.GetAwaiter().GetResult();
+
+        response?.Invoke(wasRunSuccessfully);
+        if (!wasRunSuccessfully)
+        {
+            Debug.Log("Action failed");
+            yield break;
+        }
+
+
         medicine.gameObject.SetActive(true);
 
         SetAnimation(DigimochiAnimations.Cure);
@@ -272,9 +350,10 @@ public class Digimochi : MonoBehaviour
         ActionFinished?.Invoke();
     }
 
-
     private IEnumerator DanceCoroutine()
     {
+        ActionPerformed?.Invoke();
+
         yield return new WaitForEndOfFrame();
 
         SetAnimation(DigimochiAnimations.Dance);
@@ -283,10 +362,23 @@ public class Digimochi : MonoBehaviour
 
         SetAnimation(DigimochiAnimations.Idle);
 
-
         UpdateCurrentState();
+
+        ActionFinished?.Invoke();
     }
 
+    private IEnumerator PetCoroutine()
+    {
+        ActionPerformed?.Invoke();
+        yield return new WaitForEndOfFrame();
+
+        SetAnimation(DigimochiAnimations.Pet);
+
+        yield return new WaitForSeconds(2f);
+
+        SetAnimation(DigimochiAnimations.Idle);
+        ActionFinished?.Invoke();
+    }
 
     public void SetDigimochiSO(DigimochiSO type)
     {
