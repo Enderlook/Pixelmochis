@@ -40,6 +40,7 @@ public class Digimochi : MonoBehaviour
 
     public event Action ActionPerformed;
     public event Action ActionFinished;
+    public event Action ActionFailed;
 
     public enum DigimochiAnimations
     {
@@ -61,6 +62,7 @@ public class Digimochi : MonoBehaviour
 
         ActionPerformed += OnDigimichiPerfomAction;
         ActionFinished += OnDigimichiFinishAction;
+        ActionFailed += OnDigimichiActionFailed;
     }
 
     private void OnDigimichiPerfomAction()
@@ -70,6 +72,12 @@ public class Digimochi : MonoBehaviour
 
     private void OnDigimichiFinishAction()
     {
+        isDigimochiPerfomingAction = false;
+    }
+
+    private void OnDigimichiActionFailed()
+    {
+        Debug.LogError("Action failed");
         isDigimochiPerfomingAction = false;
     }
 
@@ -263,7 +271,7 @@ public class Digimochi : MonoBehaviour
         response?.Invoke(wasRunSuccessfully);
         if (!wasRunSuccessfully)
         {
-            Debug.Log("Action failed");
+            ActionFailed?.Invoke();
             yield break;
         }
 
@@ -298,7 +306,7 @@ public class Digimochi : MonoBehaviour
         response?.Invoke(wasRunSuccessfully);
         if (!wasRunSuccessfully)
         {
-            Debug.Log("Action failed");
+            ActionFailed?.Invoke();
             yield break;
         }
 
@@ -339,7 +347,7 @@ public class Digimochi : MonoBehaviour
         response?.Invoke(wasRunSuccessfully);
         if (!wasRunSuccessfully)
         {
-            Debug.Log("Action failed");
+            ActionFailed?.Invoke();
             yield break;
         }
 
