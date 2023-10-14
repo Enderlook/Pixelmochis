@@ -6,6 +6,7 @@ using EasyButtons;
 using Hackaton;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 
 public class DigimochiManager : MonoBehaviour
 {
@@ -62,21 +63,51 @@ public class DigimochiManager : MonoBehaviour
             {
                 yield return null;
             }
-            if (task.IsFaulted)
-                throw task.AsTask().Exception;
-            if (task.Result)
-                digimochis.Add(digimochisProducer.Current);
-            else
-                break;
-        }
 
-        ValueTask disposeTask = digimochisProducer.DisposeAsync();
-        while (!disposeTask.IsCompleted)
-        {
-            yield return null;
+            ExceptionDispatchInfo exception = null;
+            try
+            {
+                if (task.GetAwaiter().GetResult())
+                {
+                    digimochis.Add(digimochisProducer.Current);
+                }
+                else
+                {
+                    goto dispose;
+                }
+            }
+            catch (Exception e)
+            {
+                exception = ExceptionDispatchInfo.Capture(e);
+            }
+
+            if (exception is not null)
+            {
+                ValueTask disposeTask = digimochisProducer.DisposeAsync();
+                while (!disposeTask.IsCompleted)
+                {
+                    yield return null;
+                }
+                try
+                {
+                    disposeTask.GetAwaiter().GetResult();
+                }
+                catch (Exception e)
+                {
+                    throw new AggregateException(e, exception.SourceException);
+                }
+                exception.Throw();
+            }
         }
-        if (disposeTask.IsFaulted)
-            throw disposeTask.AsTask().Exception;
+    dispose:
+        {
+            ValueTask disposeTask = digimochisProducer.DisposeAsync();
+            while (!disposeTask.IsCompleted)
+            {
+                yield return null;
+            }
+            disposeTask.GetAwaiter().GetResult();
+        }
 
         userDigimochis = digimochis;
         
