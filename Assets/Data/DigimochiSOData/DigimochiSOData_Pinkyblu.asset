@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5bb961687a697b44a6d0f17276663ee, type: 3}
   m_Name: DigimochiSOData_Pinkyblu
   m_EditorClassIdentifier: 
-  digimochiType: Pinkyblu
+  digimochiType: 'Pinkymon: Bubblegum Bliss'
   digimochiMainSprite: {fileID: -372172843, guid: ddde6f6881a678c4ca34983d5b968a68, type: 3}
   spriteLibraryIdleAnimation: {fileID: 7108339969198208228, guid: 432ede4b72d4f8943a36fdfcf67d74e9, type: 3}
