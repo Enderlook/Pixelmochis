@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e50d830654df94aa7e9730d78dd9a4, type: 3}
   m_Name: DigimochiDataProxy_PerroGris
   m_EditorClassIdentifier: 
-  digimochiName: Perro faldero
-  digimochiType: PerroGris
+  digimochiName: 'Grizzle: Storm''s Fangs'
+  digimochiType: 'Grizzle: Storm''s Fangs'
   lastBathTimeString: 23092023000000
   lastMealTimeString: 23092023000000
   lastMedicineTimeString: 23092023000000
