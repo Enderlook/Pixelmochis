@@ -6714,8 +6714,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.057700038, y: 0.19384992, z: 0}
-    m_Extent: {x: 3.2003999, y: 3.40055, z: 0}
+    m_Center: {x: -0.05435002, y: 0.19255006, z: 0}
+    m_Extent: {x: 3.2042499, y: 3.39565, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.27
@@ -9040,7 +9040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69523068bbd9cd44a9d21a055b1b592c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useDigimochiDataProxy: 1
+  useDigimochiDataProxy: 0
   userDigimochisProxy:
   - {fileID: 11400000, guid: 2196e752de6ba924f8b036577bd46a81, type: 2}
   - {fileID: 11400000, guid: e1ef3eee482e08843a36748fb0021dee, type: 2}
