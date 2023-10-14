@@ -91,13 +91,31 @@ namespace Hackaton
 
         private async Task LoginCheckerWeb3Auth(Provider provider)
         {
-            Account account = await Web3.Instance.LoginWeb3Auth(provider);
+            Account account;
+            try
+            {
+                account = await Web3.Instance.LoginWeb3Auth(provider);
+            }
+            catch
+            {
+                // User cancelled login.
+                account = null;
+            }
             CheckAccount(account);
         }
 
         private async Task LoginWalletAdapter()
         {
-            Account account = await Web3.Instance.LoginWalletAdapter();
+            Account account;
+            try
+            {
+                account = await Web3.Instance.LoginWalletAdapter();
+            }
+            catch
+            {
+                // Use cancelled sync.
+                account = null;
+            }
             CheckAccount(account);
         }
 

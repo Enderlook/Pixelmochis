@@ -1,6 +1,7 @@
 using Hackaton;
 
 using Solana.Unity.SDK;
+using Solana.Unity.Wallet;
 
 using System;
 using System.Collections;
@@ -66,7 +67,17 @@ public class DigimochiManager : MonoBehaviour
 
     private async Task LoginWithWaletAdapter()
     {
-        if (await Web3.Instance.LoginWalletAdapter() != null)
+        Account account;
+        try
+        {
+            account = await Web3.Instance.LoginWalletAdapter();
+        }
+        catch
+        {
+            // User cancelled sync.
+            account = null;
+        }
+        if (account != null)
         {
             StartCoroutine(SyncUserDigimochisFromNet());
         }
