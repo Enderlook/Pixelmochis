@@ -27,7 +27,7 @@ namespace Hackaton
         private static readonly byte[] VaultSeed = Encoding.UTF8.GetBytes("vault");
         private static readonly byte[] MetadataSeed = Encoding.UTF8.GetBytes("metadata");
         private static readonly PublicKey ProgramPublicKey = new("8GdnC5JNZkJgAvfPV7qMvRxjv2EACpqePSaqz89XiJPh");
-        private static readonly PublicKey CreatorPublicKey = new("9yibew6zXUWBLyg4ynYDw5YuS1ecE5BjnidSfMWZKeYB");
+        private static readonly PublicKey CreatorPublicKey = new("9KBfNf8UYwnRjq1fFRUb1Mn6iqGd239X3PG2Vvwmg7Zq");
 
         private readonly Nft nft;
         private readonly byte digimochiBumpSeed;
@@ -64,32 +64,28 @@ namespace Hackaton
 
         public async Task<bool> Cure() => await ExecuteProgram(Action.Cure);
 
-        public async Task<bool> Bath() => await ExecuteProgram(Action.Bath); 
+        public async Task<bool> Bath() => await ExecuteProgram(Action.Bath);
 
         public async Task UpdateDataAccount()
         {
             RequestResult<ResponseValue<AccountInfo>> petDataAccount = await Web3.Wallet.ActiveRpcClient.GetAccountInfoAsync(digimochiDataAddress);
-            if (petDataAccount.WasSuccessful)
+            if (petDataAccount.WasSuccessful && petDataAccount.Result.Value?.Data is List<string> data && data.Count == 2)
             {
-                List<string> data = petDataAccount.Result.Value.Data;
-                if (data.Count == 2)
+                Debug.Assert(data[1] != "base64");
+                byte[] payload = Convert.FromBase64String(data[0]);
+                if (payload.Length == 24)
                 {
-                    Debug.Assert(data[1] != "base64");
-                    byte[] payload = Convert.FromBase64String(data[0]);
-                    if (payload.Length == 24)
-                    {
-                        long secondsSinceEpoch = BinaryPrimitives.ReadInt64LittleEndian(payload.AsSpan(1, 8));
-                        if (secondsSinceEpoch != 0)
-                            lastMeal = DateTime.UnixEpoch.AddSeconds(secondsSinceEpoch);
+                    long secondsSinceEpoch = BinaryPrimitives.ReadInt64LittleEndian(payload.AsSpan(1, 8));
+                    if (secondsSinceEpoch != 0)
+                        lastMeal = DateTime.UnixEpoch.AddSeconds(secondsSinceEpoch);
 
-                        secondsSinceEpoch = BinaryPrimitives.ReadInt64LittleEndian(payload.AsSpan(8, 8));
-                        if (secondsSinceEpoch != 0)
-                            lastMedicine = DateTime.UnixEpoch.AddSeconds(secondsSinceEpoch);
+                    secondsSinceEpoch = BinaryPrimitives.ReadInt64LittleEndian(payload.AsSpan(8, 8));
+                    if (secondsSinceEpoch != 0)
+                        lastMedicine = DateTime.UnixEpoch.AddSeconds(secondsSinceEpoch);
 
-                        secondsSinceEpoch = BinaryPrimitives.ReadInt64LittleEndian(payload.AsSpan(17, 8));
-                        if (secondsSinceEpoch != 0)
-                            lastBath = DateTime.UnixEpoch.AddSeconds(secondsSinceEpoch);
-                    }
+                    secondsSinceEpoch = BinaryPrimitives.ReadInt64LittleEndian(payload.AsSpan(17, 8));
+                    if (secondsSinceEpoch != 0)
+                        lastBath = DateTime.UnixEpoch.AddSeconds(secondsSinceEpoch);
                 }
             }
         }
@@ -171,24 +167,41 @@ namespace Hackaton
 
                 Nft nft = await Nft.TryGetNftData(mintAddress, Web3.Instance.WalletBase.ActiveRpcClient, loadTexture: false);
 
-                if (nft is null)
+                if (nft?.metaplexData?.data is not MetadataAccount metadataAccount)
                     continue;
 
-                if (nft.metaplexData?.data?.offchainData is not MetaplexTokenStandard metaplexTokenStandard)
+                if (metadataAccount.offchainData is not MetaplexTokenStandard metaplexTokenStandard)
                     continue;
 
-                string species;
-                foreach (Attribute attribute in metaplexTokenStandard.attributes)
+                if (metadataAccount.metadata?.creators is not IList<Creator> creators)
+                    continue;
+
+                foreach (Creator creator in creators)
                 {
-                    if (attribute.trait_type == "Species")
+                    if (creator.verified && creator.key == CreatorPublicKey)
+                        goto foundCreator;
+                }
+                continue;
+            foundCreator:
+
+                if (metaplexTokenStandard.attributes is not List<Attribute> attributes)
+                    continue;
+
+                // There seems to be a bug in the Solana NFT parser because `trait_type` is always null.
+                string species = attributes[0].value;
+                /*string species;
+                foreach (Attribute attribute in attributes)
+                {
                     {
-                        species = attribute.value;
-                        goto foundAttribute;
+                        if (attribute.trait_type == "Species")
+                        {
+                            species = attribute.value;
+                            goto foundSpecies;
+                        }
                     }
                 }
                 continue;
-
-            foundAttribute:
+            foundSpecies:*/
 
                 if (!PublicKey.TryFindProgramAddress(
                     new byte[][] { MetadataSeed, MetadataProgram.ProgramIdKey, mintAddress.KeyBytes },
@@ -196,19 +209,6 @@ namespace Hackaton
                     out PublicKey metadataAddress,
                     out byte metadataBumpSeed))
                     continue;
-
-                RequestResult<ResponseValue<AccountInfo>> metadataRequestResult = await Web3.Wallet.ActiveRpcClient.GetAccountInfoAsync(metadataAddress.Key);
-                if (!metadataRequestResult.WasSuccessful)
-                    continue;
-                OnChainData metadataAccount = MetadataAccount.ParseData(metadataRequestResult.Result.Value.Data);
-                foreach (Creator creator in metadataAccount.creators)
-                {
-                    if (creator.verified && creator.key == CreatorPublicKey)
-                        goto foundCreator;
-                }
-                continue;
-
-            foundCreator:
 
                 AccountMeta[] accountMeta = new AccountMeta[]
                 {
