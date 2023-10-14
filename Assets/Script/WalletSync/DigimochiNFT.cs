@@ -120,6 +120,7 @@ namespace Hackaton
                 }
                 else
                 {
+                    Debug.LogError($"Error {recentBlockHashRequest.RawRpcResponse}");
                     return false;
                 }
             }
@@ -139,6 +140,7 @@ namespace Hackaton
                     goto again;
                 }
 
+                Debug.LogError($"Error {transactionRequest.RawRpcResponse}");
                 return false;
             }
 
