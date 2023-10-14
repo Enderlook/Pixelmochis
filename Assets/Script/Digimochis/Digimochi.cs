@@ -32,6 +32,8 @@ public class Digimochi : MonoBehaviour
     [SerializeField] private GameObject manzana;
     [SerializeField] private GameObject medicine;
 
+    [SerializeField] private float delayToDoAction = 1f;
+
     private DigimochiSO digimochiSO;
     private IDigimochiData digimochiData;
     private HapinessBarController hapinessBar;
@@ -260,7 +262,7 @@ public class Digimochi : MonoBehaviour
     {
         ActionPerformed?.Invoke();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         Task<bool> operation = digimochiData.Bath();
         while (!operation.IsCompleted)
@@ -274,6 +276,8 @@ public class Digimochi : MonoBehaviour
             ActionFailed?.Invoke();
             yield break;
         }
+
+        yield return new WaitForSeconds(delayToDoAction);
 
         yield return new WaitForEndOfFrame();
         // Start bath animation...
@@ -295,7 +299,7 @@ public class Digimochi : MonoBehaviour
     {
         ActionPerformed?.Invoke();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         Task<bool> operation = digimochiData.Feed();
         while (!operation.IsCompleted)
@@ -310,11 +314,16 @@ public class Digimochi : MonoBehaviour
             yield break;
         }
 
-        manzana.transform.position = new Vector2(0, 0.5f);
+        yield return new WaitForSeconds(delayToDoAction);
+
+        manzana.transform.position = new Vector2(0, 0.4f);
         manzana.SetActive(true);
 
-        manzana.transform.DOMove(transform.position, 2f);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
+
+
+        manzana.transform.DOMove(transform.position, 1.5f).SetEase(Ease.InSine);
+        yield return new WaitForSeconds(1.5f);
         
         manzana.SetActive(false);
         SetAnimation(DigimochiAnimations.Feed);
@@ -336,7 +345,7 @@ public class Digimochi : MonoBehaviour
     {
         ActionPerformed?.Invoke();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         Task<bool> operation = digimochiData.Cure();
         while (!operation.IsCompleted)
@@ -351,11 +360,12 @@ public class Digimochi : MonoBehaviour
             yield break;
         }
 
+        yield return new WaitForSeconds(delayToDoAction);
 
         medicine.gameObject.SetActive(true);
 
         SetAnimation(DigimochiAnimations.Cure);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.35f);
 
         SetAnimation(DigimochiAnimations.Idle);
         medicine.gameObject.SetActive(false);
@@ -388,8 +398,9 @@ public class Digimochi : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         SetAnimation(DigimochiAnimations.Pet);
-
+        loveParticles.Play(true);
         yield return new WaitForSeconds(2f);
+        loveParticles.Stop(false);
 
         SetAnimation(DigimochiAnimations.Idle);
         ActionFinished?.Invoke();

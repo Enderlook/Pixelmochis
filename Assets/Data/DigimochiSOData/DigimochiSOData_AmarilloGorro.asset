@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5bb961687a697b44a6d0f17276663ee, type: 3}
   m_Name: DigimochiSOData_AmarilloGorro
   m_EditorClassIdentifier: 
-  digimochiType: AmarilloGorro
+  digimochiType: 'SunCub: The Lively Bear'
   digimochiMainSprite: {fileID: 1502047278, guid: 5a8b9c6c66e9bbb4988c578dd3710853, type: 3}
   spriteLibraryIdleAnimation: {fileID: 7108339969198208228, guid: 441ed463ee8104e448ea4964f0816209, type: 3}

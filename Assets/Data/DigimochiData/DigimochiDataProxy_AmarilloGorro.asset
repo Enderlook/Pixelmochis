@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DigimochiDataProxy_AmarilloGorro
   m_EditorClassIdentifier: 
   digimochiName: AmarilloGorro
-  digimochiType: AmarilloGorro
+  digimochiType: 'SunCub: The Lively Bear'
   lastBathTimeString: 14102023000000
   lastMealTimeString: 14102023000000
   lastMedicineTimeString: 14102023000000

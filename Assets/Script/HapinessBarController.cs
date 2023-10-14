@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Rendering.Universal;
 
 public class HapinessBarController : MonoBehaviour
 {
     [SerializeField] private Image fillImage;
     [SerializeField] private List<Hapiness> hapinessStates;
+    [SerializeField] private Light2D light2D;
 
     private Hapiness currentHapinessState;
 
@@ -17,6 +19,7 @@ public class HapinessBarController : MonoBehaviour
     {
         public HapinessState state;
         public float fillValue;
+        public float lightFalloff;
     }
 
     public enum HapinessState { 
@@ -35,6 +38,7 @@ public class HapinessBarController : MonoBehaviour
 
         //DO This but with DOTween
         DOTween.To(() => fillImage.fillAmount, x => fillImage.fillAmount = x, currentHapinessState.fillValue, 0.5f);
+        DOTween.To(() => light2D.shapeLightFalloffSize, x => light2D.shapeLightFalloffSize = x, currentHapinessState.lightFalloff, 0.5f);
     }
 }
 

@@ -102,7 +102,6 @@ public class DigimochiSelector : MonoBehaviour
                 digimochis[digimochiIndex].DisableDigimochi();
                 digimochis[i].gameObject.SetActive(false);
             }
-
         }
 
         DigimochiSelected?.Invoke(digimochis[digimochiIndex]);
@@ -115,7 +114,7 @@ public class DigimochiSelector : MonoBehaviour
 
     private void OnDigimochiFinishAction()
     {
-        SetButtonsInteractable(true);
+        SetButtonsInteractable(digimochis.Count > 1);
     }
 
     private void SetButtonsInteractable(bool interactable)
