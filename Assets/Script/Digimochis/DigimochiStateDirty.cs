@@ -4,11 +4,6 @@ public class DigimochiStateDirty : DigimochiState
 {
     [SerializeField] private SpriteRenderer dirtySprite;
 
-    private void Start()
-    {
-        dirtySprite.enabled = false;
-    }
-
     protected override void OnEnter()
     {
         base.OnEnter();
