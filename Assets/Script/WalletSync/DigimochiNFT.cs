@@ -163,7 +163,7 @@ namespace Hackaton
                 PublicKey mintAddress = new(info.Mint);
 
                 if (!PublicKey.TryFindProgramAddress(
-                    new byte[][] { VaultSeed, ProgramPublicKey.KeyBytes, mintAddress.KeyBytes },
+                    new byte[][] { VaultSeed, mintAddress.KeyBytes },
                     ProgramPublicKey,
                     out PublicKey digimochiDataAddress,
                     out byte digimochiDataBumpSeed))
