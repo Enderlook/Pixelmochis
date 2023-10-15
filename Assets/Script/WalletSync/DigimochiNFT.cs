@@ -109,16 +109,6 @@ namespace Pixelmotchis
             });
             transaction.FeePayer = Web3.Account.PublicKey;
 
-            Transaction signedTransaction;
-            try
-            {
-                signedTransaction = await Web3.Wallet.SignTransaction(transaction);
-            }
-            catch
-            {
-                return false;
-            }
-
         again:
             RequestResult<ResponseValue<LatestBlockHash>> recentBlockHashRequest = await Web3.Wallet.ActiveRpcClient.GetLatestBlockHashAsync();
             if (!recentBlockHashRequest.WasSuccessful)
@@ -139,6 +129,17 @@ namespace Pixelmotchis
                 transaction.RecentBlockHash = recentBlockHashRequest.Result.Value.Blockhash;
             }
 
+            Transaction signedTransaction;
+            try
+            {
+                signedTransaction = await Web3.Wallet.SignTransaction(transaction);
+            }
+            catch
+            {
+                return false;
+            }
+
+        again2:
             RequestResult<string> transactionRequest = await Web3.Wallet.ActiveRpcClient.SendAndConfirmTransactionAsync(signedTransaction.Serialize());
 
             if (!transactionRequest.WasSuccessful)
@@ -146,7 +147,7 @@ namespace Pixelmotchis
                 // Errors which could be product of timeouts or things which require retry mechanism.
                 if (transactionRequest.ServerErrorCode is -32002 or -32004 or -32005 or -32014)
                 {
-                    goto again;
+                    goto again2;
                 }
 
                 Debug.LogError($"Error {transactionRequest.RawRpcResponse}");
