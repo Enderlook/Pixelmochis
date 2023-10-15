@@ -102,9 +102,7 @@ public class PlayerActionWindow : MonoBehaviour
         }
         else
         {
-            confirmationWindow.SetActive(false);
-            waitingWindow.SetActive(false);
-            failedWindow.SetActive(true);
+            StartCoroutine(FailedOperation());
         }
     }
 
@@ -113,6 +111,13 @@ public class PlayerActionWindow : MonoBehaviour
         succesWindow.SetActive(true);
         yield return new WaitForSeconds(1f);
         succesWindow.SetActive(false);
+    }
+
+    private IEnumerator FailedOperation()
+    {
+        failedWindow.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        failedWindow.SetActive(false);
     }
 }
 
