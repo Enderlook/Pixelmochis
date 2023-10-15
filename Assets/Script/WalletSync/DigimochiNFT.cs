@@ -109,24 +109,23 @@ namespace Pixelmotchis
             });
             transaction.FeePayer = Web3.Account.PublicKey;
 
-        again:
-            RequestResult<ResponseValue<LatestBlockHash>> recentBlockHashRequest = await Web3.Wallet.ActiveRpcClient.GetLatestBlockHashAsync();
-            if (!recentBlockHashRequest.WasSuccessful)
+            while (true)
             {
-                // Errors which could be product of timeouts or things which require retry mechanism.
-                if (recentBlockHashRequest.ServerErrorCode is -32002 or -32004 or -32005 or -32014)
+                RequestResult<ResponseValue<LatestBlockHash>> recentBlockHashRequest = await Web3.Wallet.ActiveRpcClient.GetLatestBlockHashAsync();
+                if (!recentBlockHashRequest.WasSuccessful)
                 {
-                    goto again;
-                }
-                else
-                {
+                    // Errors which could be product of timeouts or things which require retry mechanism.
+                    if (recentBlockHashRequest.ServerErrorCode is -32002 or -32004 or -32005 or -32014)
+                        continue;
+
                     Debug.LogError($"Error {recentBlockHashRequest.RawRpcResponse}");
                     return false;
                 }
-            }
-            else
-            {
-                transaction.RecentBlockHash = recentBlockHashRequest.Result.Value.Blockhash;
+                else
+                {
+                    transaction.RecentBlockHash = recentBlockHashRequest.Result.Value.Blockhash;
+                    break;
+                }
             }
 
             Transaction signedTransaction;
@@ -139,19 +138,21 @@ namespace Pixelmotchis
                 return false;
             }
 
-        again2:
-            RequestResult<string> transactionRequest = await Web3.Wallet.ActiveRpcClient.SendAndConfirmTransactionAsync(signedTransaction.Serialize());
-
-            if (!transactionRequest.WasSuccessful)
+            while (true)
             {
-                // Errors which could be product of timeouts or things which require retry mechanism.
-                if (transactionRequest.ServerErrorCode is -32002 or -32004 or -32005 or -32014)
+                RequestResult<string> transactionRequest = await Web3.Wallet.ActiveRpcClient.SendAndConfirmTransactionAsync(signedTransaction.Serialize());
+
+                if (!transactionRequest.WasSuccessful)
                 {
-                    goto again2;
+                    // Errors which could be product of timeouts or things which require retry mechanism.
+                    if (transactionRequest.ServerErrorCode is -32002 or -32004 or -32005 or -32014)
+                        continue;
+
+                    Debug.LogError($"Error {transactionRequest.RawRpcResponse}");
+                    return false;
                 }
 
-                Debug.LogError($"Error {transactionRequest.RawRpcResponse}");
-                return false;
+                break;
             }
 
             await UpdateDataAccount();
