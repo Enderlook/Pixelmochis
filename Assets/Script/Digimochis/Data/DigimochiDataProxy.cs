@@ -1,8 +1,10 @@
-using System;
-using UnityEngine;
-using System.Globalization;
 using EasyButtons;
+
+using System;
+using System.Globalization;
 using System.Threading.Tasks;
+
+using UnityEngine;
 
 namespace Pixelmochis
 {

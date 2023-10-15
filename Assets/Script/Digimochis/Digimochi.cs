@@ -1,12 +1,15 @@
+using DG.Tweening;
+
 using EasyButtons;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+
 using UnityEngine;
 using UnityEngine.U2D.Animation;
-using DG.Tweening;
-using System.Threading.Tasks;
 
 namespace Pixelmochis
 {

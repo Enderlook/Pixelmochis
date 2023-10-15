@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Pixelmochis
 {
     public class DigimochiStateHungry : DigimochiState

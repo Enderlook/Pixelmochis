@@ -1,5 +1,3 @@
-using Pixelmochis;
-
 using Solana.Unity.SDK;
 using Solana.Unity.Wallet;
 
