@@ -189,7 +189,7 @@ namespace Pixelmotchis
 
         private bool IsDateExpired(DateTime date, int minutsTreshold, bool debug = false)
         {
-            DateTime todayDateTime = DateTime.Now;
+            DateTime todayDateTime = DateTime.Now.ToUniversalTime();
 
             // Calculate the time difference
             TimeSpan timeSinceLastMeal = todayDateTime - date;
