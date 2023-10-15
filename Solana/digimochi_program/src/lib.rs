@@ -172,11 +172,6 @@ pub fn process_instruction(
         .try_borrow_mut()
         .map_err(|_| ProgramError::AccountBorrowFailed)?;
 
-    // Get time.
-    // We get it here rather than after the last validation so we don't write it twice.
-    // It makes the program smaller.
-    let time_bytes = &Clock::get()?.unix_timestamp.to_le_bytes();
-
     // Check if the account does exists.
     // If an account doesn't exists, its owner is not us but system program.
     if pet_data_account.owner != program_id {
@@ -230,7 +225,7 @@ pub fn process_instruction(
         // Safety, we checked this above at the beginning of the program.
         _ => unsafe { core::hint::unreachable_unchecked() },
     } {
-        Some(data) => data.copy_from_slice(time_bytes),
+        Some(data) => data.copy_from_slice(&Clock::get()?.unix_timestamp.to_le_bytes()),
         _ => return ProgramResult::Err(ProgramError::InvalidAccountData),
     }
 
