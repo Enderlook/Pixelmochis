@@ -400,7 +400,7 @@ MonoBehaviour:
     fillValue: 1
     lightFalloff: 5
   - state: 1
-    fillValue: 0.78
+    fillValue: 0.775
     lightFalloff: 4
   - state: 2
     fillValue: 0.6
@@ -1690,7 +1690,7 @@ MonoBehaviour:
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 1
+  m_FillAmount: 0.775
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -6872,8 +6872,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.05220008, y: 0.19264984, z: 0}
-    m_Extent: {x: 5.3282003, y: 5.51645, z: 0}
+    m_Center: {x: -0.06034994, y: 0.19414997, z: 0}
+    m_Extent: {x: 5.31885, y: 5.51895, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.27
@@ -9102,7 +9102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69523068bbd9cd44a9d21a055b1b592c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useDigimochiDataProxy: 0
+  useDigimochiDataProxy: 1
   userDigimochisProxy:
   - {fileID: 11400000, guid: 2196e752de6ba924f8b036577bd46a81, type: 2}
   - {fileID: 11400000, guid: e1ef3eee482e08843a36748fb0021dee, type: 2}
