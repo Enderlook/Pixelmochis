@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
-namespace Pixelmochis
+namespace Pixelmotchis
 {
     [CreateAssetMenu(fileName = "DigimochiType", menuName = "Digimochis/DigimochiTypeSO")]
     public class DigimochiSO : ScriptableObject

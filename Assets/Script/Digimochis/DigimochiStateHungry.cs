@@ -1,4 +1,4 @@
-namespace Pixelmochis
+namespace Pixelmotchis
 {
     public class DigimochiStateHungry : DigimochiState
     {

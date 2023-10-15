@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Pixelmochis
+namespace Pixelmotchis
 {
     public class ScaleAnimation : MonoBehaviour
     {

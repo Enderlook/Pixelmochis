@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace Pixelmochis
+namespace Pixelmotchis
 {
     // TODO: Hacer que la escala no dependa de la resolucion del usuario
     public class CursorController : MonoBehaviour

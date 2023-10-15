@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace Pixelmochis
+namespace Pixelmotchis
 {
     public sealed class Async : MonoBehaviour
     {

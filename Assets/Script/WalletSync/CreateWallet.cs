@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Pixelmochis
+namespace Pixelmotchis
 {
     public sealed class CreateWallet : Panel
     {

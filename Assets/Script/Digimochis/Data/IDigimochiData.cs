@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Pixelmochis
+namespace Pixelmotchis
 {
     public interface IDigimochiData
     {

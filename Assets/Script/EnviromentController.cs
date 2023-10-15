@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-namespace Pixelmochis
+namespace Pixelmotchis
 {
     public class EnviromentController : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Pixelmochis
+namespace Pixelmotchis
 {
     public class ButtonSoundPlayer : MonoBehaviour
     {

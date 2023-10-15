@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Pixelmochis
+namespace Pixelmotchis
 {
     public class PlayerActionWindow : MonoBehaviour
     {

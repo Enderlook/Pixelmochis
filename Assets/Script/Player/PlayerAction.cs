@@ -2,7 +2,7 @@ using System;
 
 using UnityEngine;
 
-namespace Pixelmochis
+namespace Pixelmotchis
 {
     public class PlayerAction : MonoBehaviour
     {

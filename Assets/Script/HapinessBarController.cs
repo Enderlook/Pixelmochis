@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
-namespace Pixelmochis
+namespace Pixelmotchis
 {
     public class HapinessBarController : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Pixelmochis
+namespace Pixelmotchis
 {
     [RequireComponent(typeof(UIDocument))]
     [DisallowMultipleComponent]

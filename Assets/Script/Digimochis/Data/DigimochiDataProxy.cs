@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace Pixelmochis
+namespace Pixelmotchis
 {
     // Clase que simula ser la data de la blockchain, pero sus metodos enves de obtener la data
     // desde la blockchain, directamente la toma del valor seteado en el scriptableObject
