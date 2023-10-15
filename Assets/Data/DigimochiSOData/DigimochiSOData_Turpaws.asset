@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5bb961687a697b44a6d0f17276663ee, type: 3}
-  m_Name: DigimochiSOData_NaranjaManzana
+  m_Name: DigimochiSOData_Turpaws
   m_EditorClassIdentifier: 
-  digimochiType: 'Serenibel: Sweet Harmony'
+  digimochiType: 'Turpaws: Serene Whisker'
   digimochiMainSprite: {fileID: -1758030427, guid: 98c52b3f7eaae5e4180303337ad1fc92, type: 3}
-  spriteLibraryIdleAnimation: {fileID: 7108339969198208228, guid: 21a7cd0a50ef24a4c8cc012287fdb3c1, type: 3}
+  spriteLibraryIdleAnimation: {fileID: 7108339969198208228, guid: 287eb961057f3cb4aa121d6a5284e38e, type: 3}

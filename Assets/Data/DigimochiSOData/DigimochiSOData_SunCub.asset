@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5bb961687a697b44a6d0f17276663ee, type: 3}
-  m_Name: DigimochiSOData_DiabloAzul
+  m_Name: DigimochiSOData_SunCub
   m_EditorClassIdentifier: 
-  digimochiType: 'Azulito: Moon''s Dewdrops'
-  digimochiMainSprite: {fileID: 938712829, guid: 66863ef75d0935c49a5b2d3743cf83a7, type: 3}
-  spriteLibraryIdleAnimation: {fileID: 7108339969198208228, guid: e186be136730a1e4390cfb4a45935c02, type: 3}
+  digimochiType: 'SunCub: The Lively Bear'
+  digimochiMainSprite: {fileID: 1502047278, guid: 5a8b9c6c66e9bbb4988c578dd3710853, type: 3}
+  spriteLibraryIdleAnimation: {fileID: 7108339969198208228, guid: 441ed463ee8104e448ea4964f0816209, type: 3}
