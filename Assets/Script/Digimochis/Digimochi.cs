@@ -20,14 +20,14 @@ namespace Pixelmotchis
         [SerializeField] private SpriteLibrary animationSpriteLibrary;
 
         [Header("State Thresholds")]
-        [SerializeField, Min(1), Tooltip("Time in days to get dirty")]
-        private int daysToGetDirty = 1;
+        [SerializeField, Min(1), Tooltip("Time in minuts to get dirty")]
+        private int timeToGetDirty = 1;
 
-        [SerializeField, Min(1), Tooltip("Time in days to get hungry")]
-        private int daysToGetHungry = 1;
+        [SerializeField, Min(1), Tooltip("Time in minuts to get hungry")]
+        private int timeToGetHungry = 1;
 
-        [SerializeField, Min(1), Tooltip("Time in days to get sick")]
-        private int daysToGetSick = 1;
+        [SerializeField, Min(1), Tooltip("Time in minuts to get sick")]
+        private int timeToGetSick = 1;
 
         [Header("States")]
         [SerializeField] private List<DigimochiState> states;
@@ -165,17 +165,17 @@ namespace Pixelmotchis
 
         public bool IsHungry()
         {
-            return IsDateExpired(digimochiData.GetLastMealTime(), daysToGetHungry);
+            return IsDateExpired(digimochiData.GetLastMealTime(), timeToGetHungry);
         }
 
         public bool IsSick()
         {
-            return IsDateExpired(digimochiData.GetLastMedicineTime(), daysToGetSick);
+            return IsDateExpired(digimochiData.GetLastMedicineTime(), timeToGetSick);
         }
 
         public bool IsDirty()
         {
-            return IsDateExpired(digimochiData.GetLastBathTime(), daysToGetDirty);
+            return IsDateExpired(digimochiData.GetLastBathTime(), timeToGetDirty);
         }
 
         [Button]
@@ -187,7 +187,7 @@ namespace Pixelmotchis
             }
         }
 
-        private bool IsDateExpired(DateTime date, int daysTreshold, bool debug = false)
+        private bool IsDateExpired(DateTime date, int minutsTreshold, bool debug = false)
         {
             DateTime todayDateTime = DateTime.Now;
 
@@ -195,7 +195,7 @@ namespace Pixelmotchis
             TimeSpan timeSinceLastMeal = todayDateTime - date;
 
             // Check if the time difference is greater than daysToGetHungry
-            bool isExpired = timeSinceLastMeal.TotalDays > daysTreshold;
+            bool isExpired = timeSinceLastMeal.TotalMinutes > minutsTreshold;
 
             if (debug)
             {

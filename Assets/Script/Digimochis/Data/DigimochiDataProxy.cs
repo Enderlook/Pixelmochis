@@ -44,21 +44,21 @@ namespace Pixelmotchis
         [Button]
         public Task<bool> Bath()
         {
-            lastBathTimeString = DateTime.Today.ToString(dateFormat, provider);
+            lastBathTimeString = DateTime.Now.ToString(dateFormat, provider);
             return Task.FromResult(true);
         }
 
         [Button]
         public Task<bool> Feed()
         {
-            lastMealTimeString = DateTime.Today.ToString(dateFormat, provider);
+            lastMealTimeString = DateTime.Now.ToString(dateFormat, provider);
             return Task.FromResult(true);
         }
 
         [Button]
         public Task<bool> Cure()
         {
-            lastMedicineTimeString = DateTime.Today.ToString(dateFormat, provider);
+            lastMedicineTimeString = DateTime.Now.ToString(dateFormat, provider);
             return Task.FromResult(true);
         }
 
