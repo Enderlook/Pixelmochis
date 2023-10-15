@@ -1,21 +1,23 @@
 using UnityEngine;
 
-public class DigimochiStateDirty : DigimochiState
+namespace Pixelmochis
 {
-    [SerializeField] private SpriteRenderer dirtySprite;
-
-    protected override void OnEnter()
+    public class DigimochiStateDirty : DigimochiState
     {
-        base.OnEnter();
+        [SerializeField] private SpriteRenderer dirtySprite;
 
-        dirtySprite.enabled = true;
+        protected override void OnEnter()
+        {
+            base.OnEnter();
+
+            dirtySprite.enabled = true;
+        }
+
+        protected override void OnExit()
+        {
+            base.OnExit();
+
+            dirtySprite.enabled = false;
+        }
     }
-
-    protected override void OnExit()
-    {
-        base.OnExit();
-
-        dirtySprite.enabled = false;
-    }
-
 }

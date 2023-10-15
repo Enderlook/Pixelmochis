@@ -3,33 +3,36 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnviromentController : MonoBehaviour
+namespace Pixelmochis
 {
-    [SerializeField] private List<Enviroment> enviroments;
-
-    [Serializable]
-    private struct Enviroment
+    public class EnviromentController : MonoBehaviour
     {
-        public DigimochiState.StateTypes state;
-        public GameObject[] objects;
-    }
+        [SerializeField] private List<Enviroment> enviroments;
 
-    [Button]
-    public void SetEnviromentState(DigimochiState.StateTypes state, bool value)
-    {
-        var selectedEnviroment = enviroments.Find(x => x.state == state);
-
-        if (!selectedEnviroment.Equals(null))
+        [Serializable]
+        private struct Enviroment
         {
-            SetEnviroment(selectedEnviroment, value);
+            public DigimochiState.StateTypes state;
+            public GameObject[] objects;
         }
-    }
 
-    private void SetEnviroment(Enviroment enviroment, bool value)
-    {
-        foreach (var obj in enviroment.objects)
+        [Button]
+        public void SetEnviromentState(DigimochiState.StateTypes state, bool value)
         {
-            obj.SetActive(value);
+            var selectedEnviroment = enviroments.Find(x => x.state == state);
+
+            if (!selectedEnviroment.Equals(null))
+            {
+                SetEnviroment(selectedEnviroment, value);
+            }
+        }
+
+        private void SetEnviroment(Enviroment enviroment, bool value)
+        {
+            foreach (var obj in enviroment.objects)
+            {
+                obj.SetActive(value);
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-using Hackaton;
+using Pixelmochis;
 
 using Solana.Unity.SDK;
 using Solana.Unity.Wallet;
@@ -11,164 +11,167 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-public class DigimochiManager : MonoBehaviour
+namespace Pixelmochis
 {
-    private List<IDigimochiData> userDigimochis = new List<IDigimochiData>();
-
-    [SerializeField]
-    private bool useDigimochiDataProxy;
-
-    [SerializeField]
-    private List<DigimochiDataProxy> userDigimochisProxy = new List<DigimochiDataProxy>();
-
-    [SerializeField]
-    private DigimochiGlossary digimochiGlossary;
-
-    [SerializeField]
-    private Digimochi digimochiPrefab;
-
-    [SerializeField]
-    private GameObject loadingDigimochisSign;
-
-    public event Action<List<Digimochi>> DigimochisLoaded;
-
-    private List<Digimochi> digimochisIntantied = new List<Digimochi>();
-
-    void Start()
+    public class DigimochiManager : MonoBehaviour
     {
-        if (useDigimochiDataProxy)
+        private List<IDigimochiData> userDigimochis = new List<IDigimochiData>();
+
+        [SerializeField]
+        private bool useDigimochiDataProxy;
+
+        [SerializeField]
+        private List<DigimochiDataProxy> userDigimochisProxy = new List<DigimochiDataProxy>();
+
+        [SerializeField]
+        private DigimochiGlossary digimochiGlossary;
+
+        [SerializeField]
+        private Digimochi digimochiPrefab;
+
+        [SerializeField]
+        private GameObject loadingDigimochisSign;
+
+        public event Action<List<Digimochi>> DigimochisLoaded;
+
+        private List<Digimochi> digimochisIntantied = new List<Digimochi>();
+
+        void Start()
         {
-            StartCoroutine(SyncUserDigimochisLocally());
-        }
-        else
-        {
-            if (Web3.Instance != null)
+            if (useDigimochiDataProxy)
             {
-                OnWalletInstanced();
+                StartCoroutine(SyncUserDigimochisLocally());
             }
             else
             {
-                Web3.OnWalletInstance += OnWalletInstanced;
+                if (Web3.Instance != null)
+                {
+                    OnWalletInstanced();
+                }
+                else
+                {
+                    Web3.OnWalletInstance += OnWalletInstanced;
+                }
             }
         }
-    }
 
-    private void OnWalletInstanced()
-    {
-        if (Web3.Account != null)
+        private void OnWalletInstanced()
         {
-            StartCoroutine(SyncUserDigimochisFromNet());
-        }
-        else
-        {
-            Async.Handle(LoginWithWaletAdapter());
-        }
-    }
-
-    private async Task LoginWithWaletAdapter()
-    {
-        Account account;
-        try
-        {
-            account = await Web3.Instance.LoginWalletAdapter();
-        }
-        catch
-        {
-            // User cancelled sync.
-            account = null;
-        }
-        if (account != null)
-        {
-            StartCoroutine(SyncUserDigimochisFromNet());
-        }
-    }
-
-    public IEnumerator SyncUserDigimochisFromNet()
-    {
-        loadingDigimochisSign.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-
-        yield return Async.Handle(GetDigimochisFromNet());
-
-        // Removemos cualquier digimochi que pueda ser nulo.
-        //userDigimochis.RemoveAll(x => x == null);
-
-        //Si hay digimochis los instanciamos
-        if (userDigimochis.Count > 0 && userDigimochis != null)
-        {
-            InstantieDigimochis();
-            DigimochisLoaded?.Invoke(digimochisIntantied);
-        }
-        else
-        {
-            DigimochisLoaded?.Invoke(null);
-            Debug.Log("Could not load any digimochis");
-        }
-        loadingDigimochisSign.SetActive(false);
-    }
-
-    public IEnumerator SyncUserDigimochisLocally()
-    {
-        loadingDigimochisSign.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-
-        userDigimochis = userDigimochisProxy.Select(x => x as IDigimochiData).ToList();
-
-        // Removemos cualquier digimochi que pueda ser nulo.
-        //userDigimochis.RemoveAll(x => x == null);
-
-        //Si hay digimochis los instanciamos
-        if (userDigimochis.Count > 0 && userDigimochis != null)
-        {
-            InstantieDigimochis();
-            DigimochisLoaded?.Invoke(digimochisIntantied);
-        }
-        else
-        {
-            DigimochisLoaded?.Invoke(null);
-            Debug.Log("Could not load any digimochis");
-        }
-        loadingDigimochisSign.SetActive(false);
-    }
-
-    private void InstantieDigimochis()
-    {
-        //Si ya hay digimochis instanciados, los removemos.
-        if (digimochisIntantied.Count > 0)
-        {
-            foreach (var digimochi in digimochisIntantied)
+            if (Web3.Account != null)
             {
-                Destroy(digimochi.gameObject);
+                StartCoroutine(SyncUserDigimochisFromNet());
             }
-            digimochisIntantied = new List<Digimochi>();
+            else
+            {
+                Async.Handle(LoginWithWaletAdapter());
+            }
         }
 
-        for (int i = 0; i < userDigimochis.Count; i++)
+        private async Task LoginWithWaletAdapter()
         {
-            var userDigimochiData = userDigimochis[i];
-
-            var digimochiSOFromGlossary = digimochiGlossary.FindDigimochiSO(userDigimochiData.GetDigimochiType());
-            if (digimochiSOFromGlossary == null)
-                continue;
-
-            var digimochi = Instantiate(digimochiPrefab);
-            digimochisIntantied.Add(digimochi);
-
-            digimochi.SetDigimochiSO(digimochiSOFromGlossary);
-            digimochi.SetDigimochiData(userDigimochiData);
-            digimochi.Initialize();
+            Account account;
+            try
+            {
+                account = await Web3.Instance.LoginWalletAdapter();
+            }
+            catch
+            {
+                // User cancelled sync.
+                account = null;
+            }
+            if (account != null)
+            {
+                StartCoroutine(SyncUserDigimochisFromNet());
+            }
         }
-    }
 
-    private async Task GetDigimochisFromNet()
-    {
-        List<IDigimochiData> digimochis = new();
-
-        await foreach (DigimochiNFT digimochi in DigimochiNFT.GetAllDigimochis())
+        public IEnumerator SyncUserDigimochisFromNet()
         {
-            digimochis.Add(digimochi);
+            loadingDigimochisSign.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+
+            yield return Async.Handle(GetDigimochisFromNet());
+
+            // Removemos cualquier digimochi que pueda ser nulo.
+            //userDigimochis.RemoveAll(x => x == null);
+
+            //Si hay digimochis los instanciamos
+            if (userDigimochis.Count > 0 && userDigimochis != null)
+            {
+                InstantieDigimochis();
+                DigimochisLoaded?.Invoke(digimochisIntantied);
+            }
+            else
+            {
+                DigimochisLoaded?.Invoke(null);
+                Debug.Log("Could not load any digimochis");
+            }
+            loadingDigimochisSign.SetActive(false);
         }
 
-        userDigimochis = digimochis;
+        public IEnumerator SyncUserDigimochisLocally()
+        {
+            loadingDigimochisSign.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+
+            userDigimochis = userDigimochisProxy.Select(x => x as IDigimochiData).ToList();
+
+            // Removemos cualquier digimochi que pueda ser nulo.
+            //userDigimochis.RemoveAll(x => x == null);
+
+            //Si hay digimochis los instanciamos
+            if (userDigimochis.Count > 0 && userDigimochis != null)
+            {
+                InstantieDigimochis();
+                DigimochisLoaded?.Invoke(digimochisIntantied);
+            }
+            else
+            {
+                DigimochisLoaded?.Invoke(null);
+                Debug.Log("Could not load any digimochis");
+            }
+            loadingDigimochisSign.SetActive(false);
+        }
+
+        private void InstantieDigimochis()
+        {
+            //Si ya hay digimochis instanciados, los removemos.
+            if (digimochisIntantied.Count > 0)
+            {
+                foreach (var digimochi in digimochisIntantied)
+                {
+                    Destroy(digimochi.gameObject);
+                }
+                digimochisIntantied = new List<Digimochi>();
+            }
+
+            for (int i = 0; i < userDigimochis.Count; i++)
+            {
+                var userDigimochiData = userDigimochis[i];
+
+                var digimochiSOFromGlossary = digimochiGlossary.FindDigimochiSO(userDigimochiData.GetDigimochiType());
+                if (digimochiSOFromGlossary == null)
+                    continue;
+
+                var digimochi = Instantiate(digimochiPrefab);
+                digimochisIntantied.Add(digimochi);
+
+                digimochi.SetDigimochiSO(digimochiSOFromGlossary);
+                digimochi.SetDigimochiData(userDigimochiData);
+                digimochi.Initialize();
+            }
+        }
+
+        private async Task GetDigimochisFromNet()
+        {
+            List<IDigimochiData> digimochis = new();
+
+            await foreach (DigimochiNFT digimochi in DigimochiNFT.GetAllDigimochis())
+            {
+                digimochis.Add(digimochi);
+            }
+
+            userDigimochis = digimochis;
+        }
     }
 }

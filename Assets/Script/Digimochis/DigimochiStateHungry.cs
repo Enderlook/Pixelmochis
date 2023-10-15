@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class DigimochiStateHungry : DigimochiState
+namespace Pixelmochis
 {
-    protected override void OnEnter()
+    public class DigimochiStateHungry : DigimochiState
     {
-        base.OnEnter();
-    }
+        protected override void OnEnter()
+        {
+            base.OnEnter();
+        }
 
-    protected override void OnExit()
-    {
-        base.OnExit();
+        protected override void OnExit()
+        {
+            base.OnExit();
+        }
     }
 }

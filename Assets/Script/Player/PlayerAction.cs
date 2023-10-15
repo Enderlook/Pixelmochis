@@ -1,52 +1,55 @@
 using System;
 using UnityEngine;
 
-public class PlayerAction : MonoBehaviour
+namespace Pixelmochis
 {
-    public enum PlayerActions
+    public class PlayerAction : MonoBehaviour
     {
-        Bath,
-        Feed,
-        Cure,
-        Dance,
-        Pet,
-        Cancel
-    }
+        public enum PlayerActions
+        {
+            Bath,
+            Feed,
+            Cure,
+            Dance,
+            Pet,
+            Cancel
+        }
 
-    public enum ActionType
-    {
-        Blockchain,
-        Instant,
-    }
+        public enum ActionType
+        {
+            Blockchain,
+            Instant,
+        }
 
-    [SerializeField]
-    private PlayerActions playerAction;
+        [SerializeField]
+        private PlayerActions playerAction;
 
-    [SerializeField]
-    private ActionType actionType;
+        [SerializeField]
+        private ActionType actionType;
 
-    [SerializeField, TextArea]
-    private string actionText;
+        [SerializeField, TextArea]
+        private string actionText;
 
-    public string ActionText => actionText;
+        public string ActionText => actionText;
 
-    public PlayerActions Action => playerAction;
-    public ActionType Type => actionType;
+        public PlayerActions Action => playerAction;
+        public ActionType Type => actionType;
 
-    public event Action<PlayerAction> ActionPerformed;
+        public event Action<PlayerAction> ActionPerformed;
 
-    private Func<bool> ActionCondition = () => true;
+        private Func<bool> ActionCondition = () => true;
 
-    public void PerfomAction()
-    {
-        if (ActionCondition() == false)
-            return;
+        public void PerfomAction()
+        {
+            if (ActionCondition() == false)
+                return;
 
-        ActionPerformed?.Invoke(this);
-    }
+            ActionPerformed?.Invoke(this);
+        }
 
-    public void SetCondition(Func<bool> condition)// Conditions are WIP
-    {
-        ActionCondition = condition;
+        public void SetCondition(Func<bool> condition)// Conditions are WIP
+        {
+            ActionCondition = condition;
+        }
     }
 }

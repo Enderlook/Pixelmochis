@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-namespace Hackaton
+namespace Pixelmochis
 {
     [RequireComponent(typeof(UIDocument))]
     public sealed class PanelsManager : MonoBehaviour

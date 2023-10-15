@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Hackaton
+namespace Pixelmochis
 {
     [RequireComponent(typeof(UIDocument))]
     [DisallowMultipleComponent]

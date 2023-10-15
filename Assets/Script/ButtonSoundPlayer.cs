@@ -1,30 +1,33 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonSoundPlayer : MonoBehaviour
+namespace Pixelmochis
 {
-    [SerializeField]
-    private AudioSource audioSource;
-
-    private Button[] buttons;
-
-    private void Start()
+    public class ButtonSoundPlayer : MonoBehaviour
     {
-        Invoke(nameof(FindButtons), 1f);
-    }
+        [SerializeField]
+        private AudioSource audioSource;
 
-    private void FindButtons()
-    {
-        buttons = FindObjectsOfType<Button>(true);
+        private Button[] buttons;
 
-        foreach (var button in buttons) 
+        private void Start()
         {
-            button.onClick.AddListener(OnPressedButton);
+            Invoke(nameof(FindButtons), 1f);
         }
-    }
 
-    private void OnPressedButton()
-    {
-        audioSource.Play();
+        private void FindButtons()
+        {
+            buttons = FindObjectsOfType<Button>(true);
+
+            foreach (var button in buttons)
+            {
+                button.onClick.AddListener(OnPressedButton);
+            }
+        }
+
+        private void OnPressedButton()
+        {
+            audioSource.Play();
+        }
     }
 }

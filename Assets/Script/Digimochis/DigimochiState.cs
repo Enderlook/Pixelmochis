@@ -1,56 +1,59 @@
 ﻿using UnityEngine;
 
-public class DigimochiState : MonoBehaviour
+namespace Pixelmochis
 {
-    public enum StateTypes
+    public class DigimochiState : MonoBehaviour
     {
-        Hungry,
-        Dirty,
-        Sick
-    }
+        public enum StateTypes
+        {
+            Hungry,
+            Dirty,
+            Sick
+        }
 
-    [SerializeField] private StateTypes stateType;
+        [SerializeField] private StateTypes stateType;
 
-    EnviromentController enviromentController;
+        EnviromentController enviromentController;
 
-    protected Digimochi digimochi;
-    protected bool isStateActive;
+        protected Digimochi digimochi;
+        protected bool isStateActive;
 
-    public StateTypes StateType => stateType;
-    public bool IsStateActive => isStateActive;
+        public StateTypes StateType => stateType;
+        public bool IsStateActive => isStateActive;
 
-    private void Awake()
-    {
-        Initialize();
-    }
+        private void Awake()
+        {
+            Initialize();
+        }
 
-    public void EnableState()
-    {
-        OnEnter();
-        isStateActive = true;
-        enviromentController.SetEnviromentState(stateType, true);
-    }
+        public void EnableState()
+        {
+            OnEnter();
+            isStateActive = true;
+            enviromentController.SetEnviromentState(stateType, true);
+        }
 
-    public void DisableState()
-    {
-        OnExit();
-        isStateActive = false;
-        enviromentController.SetEnviromentState(stateType, false);
-    }
+        public void DisableState()
+        {
+            OnExit();
+            isStateActive = false;
+            enviromentController.SetEnviromentState(stateType, false);
+        }
 
-    protected virtual void OnEnter()
-    {
-        
-    }
+        protected virtual void OnEnter()
+        {
 
-    protected virtual void OnExit()
-    {
+        }
 
-    }
+        protected virtual void OnExit()
+        {
 
-    private void Initialize()
-    {
-        //TODO: Emprolijar esto
-        enviromentController = FindObjectOfType<EnviromentController>();
+        }
+
+        private void Initialize()
+        {
+            //TODO: Emprolijar esto
+            enviromentController = FindObjectOfType<EnviromentController>();
+        }
     }
 }

@@ -1,33 +1,35 @@
 using UnityEngine;
-using static PlayerAction;
 
-public class PlayerController : MonoBehaviour
+namespace Pixelmochis
 {
-    [SerializeField]
-    private PlayerActionWindow playerActionController;
-
-    [SerializeField]
-    private PlayerAction[] playerActions;
-
-
-    private void Start()
+    public class PlayerController : MonoBehaviour
     {
-        foreach (var action in playerActions)
+        [SerializeField]
+        private PlayerActionWindow playerActionController;
+
+        [SerializeField]
+        private PlayerAction[] playerActions;
+
+
+        private void Start()
         {
-            action.ActionPerformed += OnPlayerAction;
+            foreach (var action in playerActions)
+            {
+                action.ActionPerformed += OnPlayerAction;
+            }
         }
-    }
 
-    private void OnDestroy()
-    {
-        foreach (var action in playerActions)
+        private void OnDestroy()
         {
-            action.ActionPerformed -= OnPlayerAction;
+            foreach (var action in playerActions)
+            {
+                action.ActionPerformed -= OnPlayerAction;
+            }
         }
-    }
 
-    private void OnPlayerAction(PlayerAction action)
-    {
-        playerActionController.ReceiveAction(action);
+        private void OnPlayerAction(PlayerAction action)
+        {
+            playerActionController.ReceiveAction(action);
+        }
     }
 }

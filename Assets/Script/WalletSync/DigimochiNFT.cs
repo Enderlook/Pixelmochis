@@ -20,7 +20,7 @@ using UnityEngine;
 using Attribute = Solana.Unity.Metaplex.Utilities.Json.Attribute;
 using Creator = Solana.Unity.Metaplex.NFT.Library.Creator;
 
-namespace Hackaton
+namespace Pixelmochis
 {
     public sealed class DigimochiNFT : IDigimochiData
     {

@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DigimochiStateSick : DigimochiState
+namespace Pixelmochis
 {
-
-    protected override void OnEnter()
+    public class DigimochiStateSick : DigimochiState
     {
-        base.OnEnter();
 
-    }
+        protected override void OnEnter()
+        {
+            base.OnEnter();
 
-    protected override void OnExit()
-    {
-        base.OnExit();
+        }
+
+        protected override void OnExit()
+        {
+            base.OnExit();
+        }
     }
 }

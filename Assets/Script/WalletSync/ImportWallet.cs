@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Hackaton
+namespace Pixelmochis
 {
     public sealed class ImportWallet : Panel
     {
