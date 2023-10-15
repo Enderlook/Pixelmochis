@@ -109,6 +109,16 @@ namespace Pixelmotchis
             });
             transaction.FeePayer = Web3.Account.PublicKey;
 
+            Transaction signedTransaction;
+            try
+            {
+                signedTransaction = await Web3.Wallet.SignTransaction(transaction);
+            }
+            catch
+            {
+                return false;
+            }
+
         again:
             RequestResult<ResponseValue<LatestBlockHash>> recentBlockHashRequest = await Web3.Wallet.ActiveRpcClient.GetLatestBlockHashAsync();
             if (!recentBlockHashRequest.WasSuccessful)
@@ -129,15 +139,6 @@ namespace Pixelmotchis
                 transaction.RecentBlockHash = recentBlockHashRequest.Result.Value.Blockhash;
             }
 
-            Transaction signedTransaction;
-            try
-            {
-                signedTransaction = await Web3.Wallet.SignTransaction(transaction);
-            }
-            catch
-            {
-                return false;
-            }
             RequestResult<string> transactionRequest = await Web3.Wallet.ActiveRpcClient.SendAndConfirmTransactionAsync(signedTransaction.Serialize());
 
             if (!transactionRequest.WasSuccessful)
