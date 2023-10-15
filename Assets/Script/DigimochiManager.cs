@@ -1,6 +1,3 @@
-using Solana.Unity.SDK;
-using Solana.Unity.Wallet;
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,43 +38,6 @@ namespace Pixelmotchis
                 StartCoroutine(SyncUserDigimochisLocally());
             }
             else
-            {
-                if (Web3.Instance != null)
-                {
-                    OnWalletInstanced();
-                }
-                else
-                {
-                    Web3.OnWalletInstance += OnWalletInstanced;
-                }
-            }
-        }
-
-        private void OnWalletInstanced()
-        {
-            if (Web3.Account != null)
-            {
-                StartCoroutine(SyncUserDigimochisFromNet());
-            }
-            else
-            {
-                Async.Handle(LoginWithWaletAdapter());
-            }
-        }
-
-        private async Task LoginWithWaletAdapter()
-        {
-            Account account;
-            try
-            {
-                account = await Web3.Instance.LoginWalletAdapter();
-            }
-            catch
-            {
-                // User cancelled sync.
-                account = null;
-            }
-            if (account != null)
             {
                 StartCoroutine(SyncUserDigimochisFromNet());
             }
