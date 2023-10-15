@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 using UnityEngine;
@@ -20,14 +21,14 @@ namespace Pixelmotchis
         [SerializeField] private SpriteLibrary animationSpriteLibrary;
 
         [Header("State Thresholds")]
-        [SerializeField, Min(1), Tooltip("Time in minuts to get dirty")]
-        private int timeToGetDirty = 1;
+        [SerializeField, Min(1), Tooltip("Time in minutes to get dirty, is random value")]
+        private Vector2Int timeToGetDirty = new(600, 2400);
 
-        [SerializeField, Min(1), Tooltip("Time in minuts to get hungry")]
-        private int timeToGetHungry = 1;
+        [SerializeField, Min(1), Tooltip("Time in minutes to get hungry")]
+        private Vector2Int timeToGetHungry = new(30, 600);
 
-        [SerializeField, Min(1), Tooltip("Time in minuts to get sick")]
-        private int timeToGetSick = 1;
+        [SerializeField, Min(1), Tooltip("Time in minutes to get sick")]
+        private Vector2Int timeToGetSick = new(800, 1080);
 
         [Header("States")]
         [SerializeField] private List<DigimochiState> states;
@@ -165,17 +166,17 @@ namespace Pixelmotchis
 
         public bool IsHungry()
         {
-            return IsDateExpired(digimochiData.GetLastMealTime(), timeToGetHungry);
+            return IsDateExpired(digimochiData.GetLastMealTime(), timeToGetHungry.x, timeToGetHungry.y);
         }
 
         public bool IsSick()
         {
-            return IsDateExpired(digimochiData.GetLastMedicineTime(), timeToGetSick);
+            return IsDateExpired(digimochiData.GetLastMedicineTime(), timeToGetSick.x, timeToGetSick.y);
         }
 
         public bool IsDirty()
         {
-            return IsDateExpired(digimochiData.GetLastBathTime(), timeToGetDirty);
+            return IsDateExpired(digimochiData.GetLastBathTime(), timeToGetDirty.x, timeToGetSick.y);
         }
 
         [Button]
@@ -187,15 +188,14 @@ namespace Pixelmotchis
             }
         }
 
-        private bool IsDateExpired(DateTime date, int minutsTreshold, bool debug = false)
+        private bool IsDateExpired(DateTime date, int minMinutesThreshold, int maxMinutesThreshold, bool debug = false)
         {
             DateTime todayDateTime = DateTime.Now.ToUniversalTime();
 
             // Calculate the time difference
             TimeSpan timeSinceLastMeal = todayDateTime - date;
 
-            // Check if the time difference is greater than daysToGetHungry
-            bool isExpired = timeSinceLastMeal.TotalMinutes > minutsTreshold;
+            bool isExpired = GetExpirationDateOf(date, (uint)minMinutesThreshold, (uint)maxMinutesThreshold) <= todayDateTime;
 
             if (debug)
             {
@@ -215,6 +215,34 @@ namespace Pixelmotchis
 
             return isExpired;
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static DateTime GetExpirationDateOf(DateTime from, uint minimumMinutes, uint maximumMinutes)
+        {
+            unchecked
+            {
+                ulong seed = ShiftSeed((ulong)((from - DateTime.UnixEpoch).TotalSeconds % ulong.MaxValue));
+                ulong value = (ulong)Remap(seed, 0, ulong.MaxValue, minimumMinutes, maximumMinutes);
+                return from.AddMinutes(value);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static ulong ShiftSeed(ulong seed)
+        {
+            unchecked
+            {
+                seed ^= seed >> 12;
+                seed ^= seed << 25;
+                seed ^= seed >> 27;
+                seed *= 0x2545F4914F6CDD1D;
+                return seed;
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        static decimal Remap(decimal value, decimal oldMin, decimal oldMax, decimal newMin, decimal newMax)
+            => unchecked(((value - oldMin) / (oldMax - oldMin) * (newMax - newMin)) + newMin);
 
         //TODO: Emprolijar metodos de acciones, hacerlo generico para evitar repeticion de codigo
 
