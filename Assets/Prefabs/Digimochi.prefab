@@ -15210,9 +15210,9 @@ MonoBehaviour:
   - {fileID: 1028633548536028826}
   - {fileID: 9196424285589759517}
   animationSpriteLibrary: {fileID: 3568706556245774915}
-  timeToGetDirty: 5
-  timeToGetHungry: 5
-  timeToGetSick: 5
+  timeToGetDirty: 20
+  timeToGetHungry: 15
+  timeToGetSick: 30
   states:
   - {fileID: 4232296677520190789}
   - {fileID: 3248656943742142678}

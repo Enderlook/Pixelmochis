@@ -469,7 +469,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Calling all your pixelmotchies...
+  m_text: Calling all your pixelmotchis...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 025b8b2dcc135d6438825bd1d180a015, type: 2}
   m_sharedMaterial: {fileID: 3672533200351721479, guid: 025b8b2dcc135d6438825bd1d180a015, type: 2}
@@ -5190,8 +5190,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.05215001, y: 0.1868, z: 0}
-    m_Extent: {x: 5.32695, y: 5.5173, z: 0}
+    m_Center: {x: -0.05495, y: 0.1947999, z: 0}
+    m_Extent: {x: 5.3222504, y: 5.5157, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.27
