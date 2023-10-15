@@ -10,7 +10,7 @@ public class PlayerActionWindow : MonoBehaviour
 
     [SerializeField] private GameObject confirmationWindow;
     [SerializeField] private GameObject waitingWindow;
-    [SerializeField] private GameObject wrongWindow;
+    [SerializeField] private GameObject failedWindow;
     [SerializeField] private GameObject succesWindow;
     [SerializeField] private TextMeshProUGUI actionText;
 
@@ -37,7 +37,7 @@ public class PlayerActionWindow : MonoBehaviour
         if (action.Type == PlayerAction.ActionType.Blockchain)
         {
             succesWindow.SetActive(false);
-            wrongWindow.SetActive(false);
+            failedWindow.SetActive(false);
             confirmationWindow.SetActive(true);
             actionText.text = action.ActionText;
         }
@@ -81,6 +81,7 @@ public class PlayerActionWindow : MonoBehaviour
 
     private void OnConfirmAction()
     {
+        confirmationWindow.SetActive(false);
         waitingWindow.SetActive(true);
         DoAction();
     }
@@ -103,7 +104,7 @@ public class PlayerActionWindow : MonoBehaviour
         {
             confirmationWindow.SetActive(false);
             waitingWindow.SetActive(false);
-            wrongWindow.SetActive(true);
+            failedWindow.SetActive(true);
         }
     }
 

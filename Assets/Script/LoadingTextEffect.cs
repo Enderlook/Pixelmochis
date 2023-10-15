@@ -2,43 +2,31 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class LoadingTextEffect : MonoBehaviour
+namespace Nova.Utilities
 {
-    public TMP_Text textMeshPro;
-    public float animationSpeed = 1.0f;
-    private string originalText;
-    private int dotsCount = 0;
-
-    private void Start()
+    public class LoadingTextEffect : MonoBehaviour
     {
-        if (textMeshPro == null)
+        private string text = "";
+        [SerializeField] private TextMeshProUGUI cargandoText;
+        [SerializeField] private float delay;
+
+        void Start()
         {
-            textMeshPro = GetComponent<TMP_Text>();
+            text = cargandoText.text;
+            StartCoroutine(LoadingEffect());
         }
 
-        if (textMeshPro != null)
+        IEnumerator LoadingEffect()
         {
-            originalText = textMeshPro.text;
-
-            StartCoroutine(AnimateLoadingText());
-        }
-        else
-        {
-            Debug.LogError("No se encontró un componente TextMeshProUGUI asignado.");
-        }
-    }
-
-    private IEnumerator AnimateLoadingText()
-    {
-        while (true)
-        {
-            // Construye el texto con los puntos.
-            textMeshPro.text = originalText;
-
-            // Incrementa la cantidad de puntos y reinicia si alcanza 3.
-            dotsCount = (dotsCount + 1) % 4;
-
-            yield return new WaitForSeconds(1.0f / animationSpeed);
+            while (true)
+            {
+                cargandoText.text = " " + text + ".";
+                yield return new WaitForSeconds(delay);
+                cargandoText.text = "  " + text + "..";
+                yield return new WaitForSeconds(delay);
+                cargandoText.text = "   " + text + "...";
+                yield return new WaitForSeconds(delay);
+            }
         }
     }
 }
