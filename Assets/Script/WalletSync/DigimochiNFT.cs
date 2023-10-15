@@ -129,7 +129,15 @@ namespace Pixelmochis
                 transaction.RecentBlockHash = recentBlockHashRequest.Result.Value.Blockhash;
             }
 
-            Transaction signedTransaction = await Web3.Wallet.SignTransaction(transaction);
+            Transaction signedTransaction;
+            try
+            {
+                signedTransaction = await Web3.Wallet.SignTransaction(transaction);
+            }
+            catch
+            {
+                return false;
+            }
             RequestResult<string> transactionRequest = await Web3.Wallet.ActiveRpcClient.SendAndConfirmTransactionAsync(signedTransaction.Serialize());
 
             if (!transactionRequest.WasSuccessful)
