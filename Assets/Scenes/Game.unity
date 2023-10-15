@@ -911,10 +911,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Web3
       objectReference: {fileID: 0}
-    - target: {fileID: 5786759800719305803, guid: b430db6fd45c6314596967ca3871f47d, type: 3}
-      propertyPath: web3AuthWalletOptions.network
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6006198732501797265, guid: b430db6fd45c6314596967ca3871f47d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
