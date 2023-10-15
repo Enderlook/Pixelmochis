@@ -19,7 +19,7 @@
             <ui:Button text="Sign in with Facebook" display-tooltip-when-elided="true" name="FACEBOOKButton" style="width: 50%;" />
             <ui:Button text="Sign in with Reddit" display-tooltip-when-elided="true" name="REDDITButton" style="width: 50%;" />
         </ui:GroupBox>
-        <ui:Button text="SYNC" display-tooltip-when-elided="true" name="WalletButton" style="font-size: 48px; align-items: center; justify-content: center; color: rgb(255, 255, 255); background-color: rgba(80, 106, 255, 0); -unity-background-image-tint-color: rgb(80, 106, 255); -unity-slice-scale: 4.2px;" />
+        <ui:Button text="SYNC" display-tooltip-when-elided="true" name="WalletButton" style="font-size: 48px; align-items: center; justify-content: center; color: rgb(255, 255, 255); background-color: rgba(80, 106, 255, 0); -unity-background-image-tint-color: rgb(80, 106, 255); -unity-slice-scale: 4.2px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
         <ui:GroupBox name="GroupBox" style="flex-direction: row; justify-content: center; margin-left: 8px; margin-right: 8px; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; display: none;">
             <ui:Button text="Import Wallet" display-tooltip-when-elided="true" name="ImportWalletButton" style="width: 50%;" />
             <ui:Button text="Create Wallet" display-tooltip-when-elided="true" name="CreateWalletButton" style="width: 50%;" />
