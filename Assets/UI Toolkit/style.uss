@@ -1,0 +1,7 @@
+.unity-button {
+    background-image: url('project://database/Assets/Art/UI/Cartel_9patch_8x8.png?fileID=21300000&guid=daf85226ac14ad64aaccde9c7f940400&type=3#Cartel_9patch_8x8');
+    height: 130px;
+    width: 320px;
+    align-self: center;
+    -unity-slice-scale: 0.7px;
+}

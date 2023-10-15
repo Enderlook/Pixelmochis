@@ -650,7 +650,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Calling all your pixelmochis...
+  m_text: Calling all your pixelmotchies...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 025b8b2dcc135d6438825bd1d180a015, type: 2}
   m_sharedMaterial: {fileID: 3672533200351721479, guid: 025b8b2dcc135d6438825bd1d180a015, type: 2}
@@ -2895,7 +2895,7 @@ PrefabInstance:
       objectReference: {fileID: 1922085464, guid: 7367f82309335df43a1aaf734c77c775, type: 3}
     - target: {fileID: 9222153925703339816, guid: daf7fb76d4f4dac4e8647c53ef96471e, type: 3}
       propertyPath: actionText
-      value: Do you want to cure your pixelmochi?
+      value: Do you want to cure your Pixelmotchi?
       objectReference: {fileID: 0}
     - target: {fileID: 9222153925703339816, guid: daf7fb76d4f4dac4e8647c53ef96471e, type: 3}
       propertyPath: actionType
@@ -2983,7 +2983,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You don't have pixelmochis :C
+  m_text: You don't have pixelmotchies :C
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 025b8b2dcc135d6438825bd1d180a015, type: 2}
   m_sharedMaterial: {fileID: 3672533200351721479, guid: 025b8b2dcc135d6438825bd1d180a015, type: 2}
@@ -4293,7 +4293,7 @@ PrefabInstance:
       objectReference: {fileID: 1648452067, guid: b5b3d872020027e45b93401894b4ca2f, type: 3}
     - target: {fileID: 9222153925703339816, guid: daf7fb76d4f4dac4e8647c53ef96471e, type: 3}
       propertyPath: actionText
-      value: Do you want to feed your pixelmochi?
+      value: Do you want to feed your Pixelmotchi?
       objectReference: {fileID: 0}
     - target: {fileID: 9222153925703339816, guid: daf7fb76d4f4dac4e8647c53ef96471e, type: 3}
       propertyPath: actionType
@@ -6872,8 +6872,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.06034994, y: 0.19414997, z: 0}
-    m_Extent: {x: 5.31885, y: 5.51895, z: 0}
+    m_Center: {x: -0.05159998, y: 0.19309998, z: 0}
+    m_Extent: {x: 5.3248, y: 5.5126, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.27
@@ -9102,7 +9102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69523068bbd9cd44a9d21a055b1b592c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useDigimochiDataProxy: 1
+  useDigimochiDataProxy: 0
   userDigimochisProxy:
   - {fileID: 11400000, guid: 2196e752de6ba924f8b036577bd46a81, type: 2}
   - {fileID: 11400000, guid: e1ef3eee482e08843a36748fb0021dee, type: 2}
@@ -9385,7 +9385,7 @@ PrefabInstance:
       objectReference: {fileID: 140296016, guid: 60933f7f54d2197428431434c5ad23ec, type: 3}
     - target: {fileID: 9222153925703339816, guid: daf7fb76d4f4dac4e8647c53ef96471e, type: 3}
       propertyPath: actionText
-      value: Do you want to bath your pixelmochi?
+      value: Do you want to bath your Pixelmotchi?
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
