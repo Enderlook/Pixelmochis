@@ -53,6 +53,7 @@ namespace Pixelmotchis
                 digimochis[i].transform.SetParent(transform.transform, false);
                 digimochis[i].ActionPerformed += OnDigimochiPerformAction;
                 digimochis[i].ActionFinished += OnDigimochiFinishAction;
+                digimochis[i].ActionFailed += OnDigimochiFailedAction;
             }
 
             UpdateCurrentDigimochi();
@@ -108,6 +109,11 @@ namespace Pixelmotchis
             }
 
             DigimochiSelected?.Invoke(digimochis[digimochiIndex]);
+        }
+
+        private void OnDigimochiFailedAction()
+        {
+            SetButtonsInteractable(digimochis.Count > 1);
         }
 
         private void OnDigimochiPerformAction()
