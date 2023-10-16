@@ -1,28 +1,33 @@
 body {
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
 }
 
 #unity-container {
-    position: absolute; /* Cambiado a posición relativa */
     border: 2px solid #333;
     padding: 20px;
     border-radius: 10px;
     background-color: #A55FB0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    margin-top: 20px; /* Espacio entre el contenedor de Unity y el borde superior */
 }
 
     #unity-container.unity-desktop {
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        position: relative;
     }
 
     #unity-container.unity-mobile {
         position: fixed;
         width: 100%;
         height: 100%;
+        left: 0;
+        top: 0;
     }
 
 #unity-canvas {
@@ -79,11 +84,13 @@ body {
     background: url('webgl-logo.png') no-repeat center;
 }
 
+
+
 #unity-build-title {
     float: right;
     margin-right: 10px;
     line-height: 38px;
-    font-family: arial;
+    font-family: Arial, sans-serif;
     font-size: 18px;
     color: white;
 }
@@ -107,15 +114,14 @@ body {
 }
 
 #known-issues {
-    background: white;
-    width: 20%;
+    width: 50%;
     font-size: small;
-    background-color: #BE1EDB;
+    background-color: black;
     text-align: center;
     color: white;
     opacity: 0.35;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     padding: 10px;
-    margin-top: 20px; /* Agrega un margen superior para separar del unity-container */
-    margin-right: 100%; /* Agrega un margen superior para separar del unity-container */
+    margin: 20px auto; /* Espacio entre Known Issues y el contenedor de Unity y centrado horizontalmente */
+    border-radius: 10px;
 }
