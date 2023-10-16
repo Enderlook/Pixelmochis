@@ -10,6 +10,7 @@ body {
     border-radius: 10px;
     background-color: #A55FB0;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
     #unity-container.unity-desktop {
@@ -108,10 +109,11 @@ body {
 #known-issues {
     background: white;
     width: 20%;
+    font-size: small;
     background-color: #BE1EDB;
     text-align: center;
     color: white;
-    opacity: 0.5;
+    opacity: 0.35;
     font-family: Arial;
     padding: 10px;
     margin-top: 20px; /* Agrega un margen superior para separar del unity-container */
