@@ -4,12 +4,12 @@ body {
 }
 
 #unity-container {
-    position: absolute;
-    border: 2px solid #333; /* Agrega un borde sólido de 2px, puedes cambiar el color y el grosor */
-    padding: 20px; /* Ajusta el espacio interno para que se vea bonito */
-    border-radius: 10px; /* Agrega bordes redondeados para que se vea más atractivo */
-    background-color: #A55FB0; /* Cambia el color de fondo a tu preferencia */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Agrega una sombra al contenedor */
+    position: absolute; /* Cambiado a posición relativa */
+    border: 2px solid #333;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #A55FB0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
     #unity-container.unity-desktop {
@@ -71,7 +71,7 @@ body {
 }
 
 #unity-webgl-logo {
-    display: none; /* Esta línea oculta el logo de Unity WebGL */
+    display: none;
     float: left;
     width: 204px;
     height: 38px;
@@ -84,7 +84,7 @@ body {
     line-height: 38px;
     font-family: arial;
     font-size: 18px;
-    color: white; /* Cambia "red" al color que desees */
+    color: white;
 }
 
 #unity-fullscreen-button {
@@ -103,4 +103,17 @@ body {
     background: white;
     padding: 10px;
     display: none;
+}
+
+#known-issues {
+    background: white;
+    width: 20%;
+    background-color: #BE1EDB;
+    text-align: center;
+    color: white;
+    opacity: 0.5;
+    font-family: Arial;
+    padding: 10px;
+    margin-top: 20px; /* Agrega un margen superior para separar del unity-container */
+    margin-right: 100%; /* Agrega un margen superior para separar del unity-container */
 }
